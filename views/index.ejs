@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="beecafeteriaApp">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js"></script>
+  <script src="javascripts\script.js"></script>
+  <title>Beecafeteria</title>
+</head>
+<body>
+
+<ng-view></ng-view>
+
+<!-- Home Template-->
+<script type="text/ng-template" id="/home">
+<h1>Login Page!</h1>
+Username : <input ng-model='user.username'></input>
+<br><br>
+Password : <input ng-model='user.password'></input>
+<br><br>
+<button ng-click="login()">Login</button>
+<button ng-click="clear()">Clear</button>
+<br><br>
+
+<span>{{statusCode.status}}</span>
+</script>
+</body>
+</html>
