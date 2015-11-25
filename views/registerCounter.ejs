@@ -67,18 +67,18 @@
     
 		    	$http({
 		            method: 'POST',
-		            url: '/admin/registerCounter',
+		            url: '/counter/create',
 		            data:counter
 		            }).success(function(data){
 		           		if(data.statusCode=200)
 		           		{
 		           		alert("success");
-		           		window.location='./loadadminejs';
+		           		window.location='/admin/loadadminejs';
 		           		}
 		           		else
 		           		{
 		           		alert("registration failed");
-		           		window.location='./registercounter';
+		           		window.location='/admin/counterSignUp';
 		           		}
 		           		
 		        }).error(function(error){

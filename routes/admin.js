@@ -88,9 +88,9 @@ router.get('/loadvalue', function(req, res, next) {
 
 //approve request admin
 router.post('/approveAdmin', function(req, res, next) {
-	var counter_id=req.body['counter_id'];
+	var primary_id=req.body['primary_id'];
 
-	var customer = Customer.build({counter_id : counter_id});
+	var customer = Customer.build({primary_id : primary_id});
 	customer.approveAdminForCounter(function(rows){
 		res.send();
 	});
@@ -103,23 +103,6 @@ router.post('/denyAdmin', function(req, res, next) {
 	var customer = Customer.build({primary_id : primary_id});
 	customer.removeCustomer(function(rows){
 		res.send();
-	});
-});
-
-router.post('/registerCounter', function(req, res, next) {
-	var data={};
-	var name=req.body['name'];
-	var description=req.body['description'];
-
-	var counter_register = Counter_Register.build({name : name, description : description});
-	counter_register.register(function(rows){
-		if(rows){
-			data.statusCode = 200;
-			res.json(status);
-		}
-		else{
-			res.status(401).send({status:'Registration Failed!'});
-		}
 	});
 });
 

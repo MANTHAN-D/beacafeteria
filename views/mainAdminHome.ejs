@@ -202,31 +202,30 @@ $scope.modifyCounter = function(tableData){
 		//$scope.editingData[tableData.counter_id] = false;
 		  $http({
 		            method: 'POST',
-		            url: '/approveAdmin',
+		            url: '/admin/approveAdmin',
 		            data:tableData
 		            }).success(function(response){
 		           		alert(JSON.stringify(response));
 		           		//$scope.extra=false;
 		           		//$scope.results= response;
-		           		window.location="/loadadminejs";
+		           		window.location="/admin/loadadminejs";
 		        }).error(function(error){
 		            alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
 		        });
 
     };
 
-  $scope.deny = function(tableData){
-      alert("tabledata item : "+tableData.counter_id);
+  $scope.deny = function(tableData){      
 	//	$scope.editingData[tableData.counter_id] = false;
 		  $http({
 		            method: 'POST',
-		            url: '/denyAdmin',
+		            url: '/admin/denyAdmin',
 		            data:tableData
 		            }).success(function(response){
 		           		alert(JSON.stringify(response));
 		           		//$scope.extra=false;
 		           		//$scope.results= response;
-		           		window.location="/loadadminejs";
+		           		window.location="/admin/loadadminejs";
 		        }).error(function(error){
 		            alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
 		        });
@@ -239,7 +238,7 @@ $scope.modifyCounter = function(tableData){
 	
   
     $scope.registercounter = function(){
-    window.location='/registercounter';
+    window.location='/admin/counterSignUp';
     };
 	
 	 $scope.logout = function(){

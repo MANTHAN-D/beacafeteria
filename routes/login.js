@@ -21,23 +21,22 @@ router.post('/',function(req,res,next){
 			customer.validate(email,password,			
 				function(rows){
 					if(rows){
-						// if(rows[0].is_admin == 0){
-						// 	console.log('To be admin');
-						// 	data.statusCode = 201;
-						// 	res.json(data);
-						// }
-						// else if(rows[0].is_admin == 1){
-						// 	console.log('Counter admin');
-						// 	data.status = 202;
-						// 	res.json(data);
-						// }
-						// else{
-						// 	console.log('Customer');
-						// 	data.status = '200';
-						// 	res.json(data);
+						if(rows.is_admin == 0){
+							console.log('To be admin');
+							data.statusCode = 201;
+							res.json(data);
+						}
+						else if(rows.is_admin == 1){
+							console.log('Counter admin');
+							data.statusCode = 202;
+							res.json(data);
+						}
+						else{
+							console.log('Customer');
+							data.statusCode = '200';
+							res.json(data);
 
-						// }
-						res.status(200);
+						}						
 					}
 					else{		 
 						res.status(401).send({status:'Invalid Login credentials'});
