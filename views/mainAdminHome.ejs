@@ -60,7 +60,7 @@
                         <tr ng-repeat="tableData in tabelsData">
                     
                             <td>
-                                <div ng-hide="editingData[tableData.counter_id]">{{tableData.counter_id | uppercase}}</div>
+                                <div ng-hide="editingData[tableData.counter_id]"><input type="text" ng-model="tableData.counter_id" /></div>
                                 <div ng-show="editingData[tableData.counter_id]"><input type="text" ng-model="tableData.counter_id" /></div>
                             </td>
                             <td>
@@ -149,8 +149,11 @@ app.controller('mainadminCtrl', function($scope,$http) {
     url:'/admin/loadadminhome'
     }).success(function(data){
    alert("dat a in anloadvalue"+JSON.parse(data.results));
+
+
     $scope.tabelsData=JSON.parse(data.results);
     $scope.counterData =JSON.parse(data.results1);
+
     alert("counteradata"+JSON.stringify($scope.counterData));
     alert("tabelsData : "+JSON.stringify($scope.tabelsData)); 
     });
