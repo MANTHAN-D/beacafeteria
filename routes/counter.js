@@ -14,7 +14,7 @@ router.post('/create',function(req,res,next){
 
 		counter_register.register(function(rows){
 				if(rows){
-					data.status = '200';
+					data.statusCode = 200;
 					res.json(data);
 				}
 				else{		 

@@ -32,7 +32,7 @@ var Customer = sequelize.define('customer_details',{
 			},			
 
 			validate : function(email,password,callback){
-				Customer.find({where : {email : email, password : password}})
+				Customer.findOne({where : {email : email, password : password}})
 				.then(function(docs){					
 					callback(docs);
 				});
@@ -56,9 +56,9 @@ var Customer = sequelize.define('customer_details',{
 			},
 
 			approveAdminForCounter : function(callback){				
-				var counter_id = this.counter_id;
+				var primary_id = this.primary_id;
 
-				Customer.update({is_admin : 1}, {where : {counter_id : counter_id}})
+				Customer.update({is_admin : 1}, {where : {primary_id : primary_id}})
 				.then(function(docs){					
 					callback(docs);
 				});

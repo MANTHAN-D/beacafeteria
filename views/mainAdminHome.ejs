@@ -60,7 +60,7 @@
                         <tr ng-repeat="tableData in tabelsData">
                     
                             <td>
-                                <div ng-hide="editingData[tableData.counter_id]">{{tableData.counter_id | uppercase}}</div>
+                                <div ng-hide="editingData[tableData.counter_id]"><input type="text" ng-model="tableData.counter_id" /></div>
                                 <div ng-show="editingData[tableData.counter_id]"><input type="text" ng-model="tableData.counter_id" /></div>
                             </td>
                             <td>
@@ -148,8 +148,11 @@ app.controller('mainadminCtrl', function($scope,$http) {
     url:'/admin/loadadminhome'
     }).success(function(data){
    alert("dat a in anloadvalue"+JSON.parse(data.results));
+
+
     $scope.tabelsData=JSON.parse(data.results);
     $scope.counterData =JSON.parse(data.results1);
+
     alert("counteradata"+JSON.stringify($scope.counterData));
     alert("tabelsData : "+JSON.stringify($scope.tabelsData)); 
     });
@@ -203,31 +206,30 @@ $scope.modifyCounter = function(tableData){
 		//$scope.editingData[tableData.counter_id] = false;
 		  $http({
 		            method: 'POST',
-		            url: '/approveAdmin',
+		            url: '/admin/approveAdmin',
 		            data:tableData
 		            }).success(function(response){
 		           		alert(JSON.stringify(response));
 		           		//$scope.extra=false;
 		           		//$scope.results= response;
-		           		window.location="/loadadminejs";
+		           		window.location="/admin/loadadminejs";
 		        }).error(function(error){
 		            alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
 		        });
 
     };
 
-  $scope.deny = function(tableData){
-      alert("tabledata item : "+tableData.counter_id);
+  $scope.deny = function(tableData){      
 	//	$scope.editingData[tableData.counter_id] = false;
 		  $http({
 		            method: 'POST',
-		            url: '/denyAdmin',
+		            url: '/admin/denyAdmin',
 		            data:tableData
 		            }).success(function(response){
 		           		alert(JSON.stringify(response));
 		           		//$scope.extra=false;
 		           		//$scope.results= response;
-		           		window.location="/loadadminejs";
+		           		window.location="/admin/loadadminejs";
 		        }).error(function(error){
 		            alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
 		        });
@@ -240,7 +242,7 @@ $scope.modifyCounter = function(tableData){
 	
   
     $scope.registercounter = function(){
-    window.location='/registercounter';
+    window.location='/admin/counterSignUp';
     };
 	
 	 $scope.logout = function(){
@@ -251,10 +253,5 @@ $scope.modifyCounter = function(tableData){
 });
 
 </script> 
-
-
-
 </body>
-
-
 </html>
