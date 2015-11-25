@@ -1,29 +1,52 @@
 <!DOCTYPE html>
-<html ng-app="beecafeteriaApp">
+<html ng-app="counter_configuration">
+<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<style>
 
-<head>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js"></script>
-  <script src="javascripts\script.js"></script>
-  <title>Beecafeteria</title>
-</head>
+ th, td {
+    border: 1px solid black;
+}
+</style>
+
 <body>
+<%=title%>
 
-<ng-view></ng-view>
+<div ng-controller="signupCtrl">
+<h1>Don't Have an account </h1>
+<input type="button" ng-click="signup()" name="signup" value="Sign Up" />
+</div>
 
-<!-- Home Template-->
-<script type="text/ng-template" id="/home">
-<h1>Login Page!</h1>
-Username : <input ng-model='user.username'></input>
-<br><br>
-Password : <input ng-model='user.password'></input>
-<br><br>
-<button ng-click="login()">Login</button>
-<button ng-click="clear()">Clear</button>
-<br><br>
+<div ng-controller="signupCtrl">
 
-<span>{{statusCode.status}}</span>
-</script>
+
+<input type="button" ng-click="loginasadmin()" name="LOGIN AS ADMIN" value="loginasadmin" />
+</div>
+<div ng-controller="signupCtrl">
+
+<input type="button" ng-click="counteradmin()" name="LOGIN AS COUNTER ADMIN" value="loginascounteradmin" />
+</div>
+
+<script>
+var app = angular.module('counter_configuration', []);
+
+
+
+app.controller('signupCtrl', function($scope) {
+  
+    $scope.loginasadmin = function(){
+    window.location='/loginasadmin';
+    };
+
+   $scope.counteradmin = function(){
+    window.location='/loginasadmin';
+    };
+    $scope.signup = function() {
+    
+		    	window.location ='/signup';
+    };
+});
+
+</script> 
+
 </body>
 </html>

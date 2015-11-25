@@ -20,7 +20,24 @@ var Counter_Register = sequelize.define('counter_register',{
 				.then(function(docs){
 					callback(docs);
 				});
-			}
+			},
+
+			getCounterList : function(callback){
+				
+				Counter_Register.findAll()
+				.then(function(docs){
+					callback(docs);
+				});
+			},
+
+			getCounter : function(callback){
+				
+				var name = this.name;
+				Counter_Register.find({where : {name : name}})
+				.then(function(docs){
+					callback(docs);
+				});
+			}			
 		}
 	}
 );

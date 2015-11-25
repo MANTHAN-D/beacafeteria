@@ -33,6 +33,13 @@ var DailDeal_Config = sequelize.define('daily_deals_configuration',{
 				.then(function(docs){
 					callback(docs);
 				});
+			},
+			getAllDeals : function(callback){				
+
+				DailDeal_Config.findAll()
+				.then(function(docs){
+					callback(docs);
+				});
 			}			
 		}
 	}

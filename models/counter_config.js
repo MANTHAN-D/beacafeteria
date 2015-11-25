@@ -19,13 +19,46 @@ var Counter_Config = sequelize.define('counter_configuration',{
 		instanceMethods : {
 			configure : function(callback){
 				var counter_id = this.counter_id;
-				var item_name = this.name;
+				var item_name = this.item_name;
 				var item_image = this.item_image;				
 				var item_rating = this.item_rating;
 				var price = this.price;
 
 				Counter_Config.create({counter_id : counter_id, item_name : item_name, item_image : item_image,
 				 item_rating : item_rating,price : price})
+				.then(function(docs){
+					callback(docs);
+				});
+			},
+
+			getMenuList : function(callback){
+				var counter_id = this.counter_id;
+
+				Counter_Config.findAll({where : {counter_id : counter_id}})
+				.then(function(docs){
+					callback(docs);
+				});
+			},
+
+			remove : function(callback){
+				var counter_id = this.counter_id;
+				var item_name = this.item_name;
+
+				Counter_Config.destroy({where : {counter_id : counter_id, item_name : item_name}})
+				.then(function(docs){
+					callback(docs);
+				});
+			},
+
+			update : function(callback){
+				var counter_id = this.counter_id;
+				var item_name = this.item_name;
+				var item_image = this.item_image;				
+				var item_rating = this.item_rating;
+				var price = this.price;
+
+				Counter_Config.update({price : price, item_rating : item_rating, item_image : item_image},
+					{where : {counter_id : counter_id, item_name : item_name}})
 				.then(function(docs){
 					callback(docs);
 				});

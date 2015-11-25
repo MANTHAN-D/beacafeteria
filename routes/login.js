@@ -7,23 +7,44 @@ router.post('/',function(req,res,next){
 		
 	var data ={};
 	var email = req.body['email'];
-	var password = req.body['pass'];
+	var password = req.body['password'];
 
 	if(typeof(email) != 'undefined' && typeof(password) != 'undefined'){
 		
-		var customer = Customer.build();
+		if(email == 'admin@beecafeteria.net' && password == 'password@1'){
+			console.log('Main admin');
+			res.json({statusCode : 200});
+		}
+		else{
+			var customer = Customer.build();
 
-		customer.validate(email,password,			
-			function(rows){
-				if(rows){
-					data.status = '200';
-					res.json({status : '200'});
-				}
-				else{		 
-					res.status(401).send({status:'Invalid Login credentials'});
-				}
+			customer.validate(email,password,			
+				function(rows){
+					if(rows){
+						// if(rows[0].is_admin == 0){
+						// 	console.log('To be admin');
+						// 	data.statusCode = 201;
+						// 	res.json(data);
+						// }
+						// else if(rows[0].is_admin == 1){
+						// 	console.log('Counter admin');
+						// 	data.status = 202;
+						// 	res.json(data);
+						// }
+						// else{
+						// 	console.log('Customer');
+						// 	data.status = '200';
+						// 	res.json(data);
 
-			});
+						// }
+						res.status(200);
+					}
+					else{		 
+						res.status(401).send({status:'Invalid Login credentials'});
+					}
+
+				});
+		}		
 	}
 	else{
 		res.status(500).send({status:'500'});
