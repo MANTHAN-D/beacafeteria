@@ -37,6 +37,28 @@ var Counter_Register = sequelize.define('counter_register',{
 				.then(function(docs){
 					callback(docs);
 				});
+			},
+
+			update : function(callback){
+				
+				var primary_id = this.primary_id;
+				var name = this.name;
+				var description = this.description;
+
+				Counter_Register.update({name : name, description : description},{where : {primary_id : primary_id}})
+				.then(function(docs){
+					callback(docs);
+				});
+			},
+
+			remove : function(callback){
+				
+				var primary_id = this.primary_id;				
+
+				Counter_Register.destroy({where : {primary_id : primary_id}})
+				.then(function(docs){
+					callback(docs);
+				});
 			}			
 		}
 	}
