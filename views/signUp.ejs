@@ -6,6 +6,16 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 <link rel='stylesheet' href='/stylesheets/style.css' />
+<!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+<!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/business-casual.css" rel="stylesheet">
+
+
   	<style>
 			.header,
 			.marketing,
@@ -28,32 +38,76 @@
   	</style>
   
 </head>
-<body  >
-    
-    <div class="container" ng-controller="signupcontroller">
-    <h1>Registration Form</h1>
-	<div class="col-lg-6 well">
-	<div class="row">
+<body ng-controller="signupcontroller">
+<div class="brand">BeeCafeteria</div>
+    <div class="address-bar"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
+                <a class="navbar-brand" href="index.html">BeeCafeteria</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#" ng-click="home()" name="signup" >Home</a>
+                    </li>
+                    <li>
+                        <a href="#"  ng-click="loginasadmin()" name="LOGIN AS ADMIN" >LOGIN</a>
+                    </li>
+                    <li>
+                        <a href="#">ABOUT</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="box">
+                <div class="col-lg-12 text-center">
+                    <div id="carousel-example-generic" class="carousel slide">
+                        <!-- Indicators -->
+							<h1>Registration Form</h1>
+					<div class="col-lg-6 well">
+					<div class="row">
 				<form>
 					<div class="col-sm-12">
 						<div class="row">
 							<div class="col-sm-12 form-group">
-								<label>Name</label>
+								<label class="navbar-brand">Name</label>
 								<input type="text" ng-model="admin.name" placeholder="Enter First Name Here.." class="form-control">
 							</div>
 							
 						</div>					
 												
 					<div class="form-group">
-						<label>Phone Number</label>
+						<label class="navbar-brand">Phone Number</label>
 						<input type="number" placeholder="Enter Phone Number Here.." ng-model="admin.phone" class="form-control" >
 					</div>		
 					<div class="form-group">
-						<label>Email Address</label>
+						<label class="navbar-brand">Email Address</label>
 						<input type="email" placeholder="Enter Email Address Here.." ng-model="admin.email" class="form-control">
 					</div>	
 					<div class="form-group">
-						<label>Password</label>
+						<label class="navbar-brand">Password</label>
 						<input type="password" placeholder="Enter Website Name Here.." ng-model="admin.password" class="form-control">
 					</div>
 					<div>
@@ -64,11 +118,63 @@
 				</div>
 	</div>
 	</div>
+    
+                    </div><br><br><br><br><br><br>
+                    <h2 class="brand-before">
+                        <small>Welcome to</small>
+                    </h2>
+                    <h1 class="brand-name">BeeCafeteria</h1>
+                    <hr class="tagline-divider">
+                    <h2>
+                        <small>By
+                            <strong>SJSU</strong>
+                        </small>
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+    <!-- /.container -->
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p>xxxxx</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+    
     <script>
     var app = angular.module('signupapp', []);
     app.controller('signupcontroller', function($scope,$http) {
   
-    
+        $scope.loginasadmin = function(){
+    window.location='/loginasadmin';
+    };
+        $scope.home = function(){
+    window.location='/';
+    };
+
 
     $scope.SIGNUP = function(admin) {
     
