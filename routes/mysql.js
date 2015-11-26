@@ -12,10 +12,10 @@ var database;
 exports.getSequelize = function getSequelize(){
 	var sequelize;
 	host = 'sql3.freemysqlhosting.net';
-	user = 'sql396984';
-	password = 'mR9!iF6!';
+	user = 'sql397810';
+	password = 'uQ9!kF2%';
 	port = 3306; //port mysql
-	database ='sql396984';
+	database ='sql397810';
 		
 	sequelize = new Sequelize(database,user,password,{
 		host: host,        
