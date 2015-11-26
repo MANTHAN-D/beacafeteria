@@ -1,0 +1,178 @@
+<div class="col-sm-12" >
+
+<div class="col-sm-6 form-group" style="display:inline">    
+                <table  class="table table-striped " style="display:inline">
+                    <thead>
+                        <tr>
+                            <th>Counter No.</th>
+                            <th>Admin Name</th>
+                            <th>Phone No.</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    
+                        <tr ng-repeat="tableData in tabelsData">
+                    
+                            <td>
+							
+                                <div ng-hide="editingData[tableData.counter_id]">{{tabelsData.counter_id}}</div>
+                                <div ng-show="editingData[tableData.counter_id]"><input type="number" ng-model="tableData.counter_id" style="width:90px"/></div>
+                            </td>
+                            <td>
+                                <div >{{tableData.name | uppercase}}</div>
+
+                            </td>
+                            <td>
+                                <div>{{tableData.phone}}</div>
+
+                            </td>
+                            
+                            <td>
+                               <button ng-hide="editingData[tableData.counter_id]" ng-click="modify(tableData)">Modify/Approve</button>
+                                <button ng-show="editingData[tableData.counter_id]" ng-click="update(tableData)">Confirm</button>  
+                          
+                                
+                                <button ng-click="deny(tableData)">Deny</button>
+                            </td>
+                        </tr>
+                       
+                       
+                    </tbody>
+                </table>
+   </div>
+ <div class="col-sm-6 form-group" style="display:inline;margin-left:00px" >   
+                <table class="table table-striped" style="display:inline;">
+                    <thead>
+                        <tr>
+                            <th>Counter No.</th>
+                            <th>Counter Name</th>
+                            <th>Desciption</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    
+                        <tr ng-repeat="countersData in counterData">
+                      
+                            <td>
+                                <div >{{countersData.primary_id | uppercase}}</div>
+                                
+                            </td>
+                            <td>
+                                <div ng-hide="editingData[countersData.primary_id]">{{countersData.name | uppercase}}</div>
+                                <div ng-show="editingData[countersData.primary_id]"><input type="text" ng-model="countersData.name" /></div>
+                            </td>
+                            <td>
+                                <div ng-hide="editingData[countersData.primary_id]">{{countersData.description}}</div>
+                                <div ng-show="editingData[countersData.primary_id]"><input type="text" ng-model="countersData.description" /></div>
+                            </td>
+                            
+                            <td>
+                                
+                          <button ng-hide="editingData[countersData.primary_id]" ng-click="modifyCounter(countersData)">Modify</button>
+                                <button ng-show="editingData[countersData.primary_id]" ng-click="updateCounter(countersData)">Update</button>
+                                
+                                <button ng-click="removecounter(countersData) ng-hide="viewField">Remove</button>
+                            </td>
+                        </tr>
+                       
+                       
+                    </tbody>
+                </table>
+    
+            </div>
+
+
+
+</div>
+
+<div style="display:inline" class="container">
+    <div class="container" class="wraper " style="display:inline">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-6 form-group">    
+                    <table  class="table table-striped " style="display:inline">
+                        <thead>
+                            <tr>
+                                <th>Counter No.</th>
+                                <th>Admin Name</th>
+                                <th>Phone No.</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr ng-repeat="tableData in tabelsData">
+
+                                <td>
+                                    <div ng-hide="editingData[tableData.counter_id]"><input type="text" ng-model="tableData.counter_id" /></div>
+                                    <div ng-show="editingData[tableData.counter_id]"><input type="text" ng-model="tableData.counter_id" /></div>
+                                </td>
+                                <td>
+                                    <div >{{tableData.name | uppercase}}</div>
+
+                                </td>
+                                <td>
+                                    <div>{{tableData.phone}}</div>
+
+                                </td>
+
+                                <td>
+                                 <button ng-hide="editingData[tableData.counter_id]" ng-click="modify(tableData)">Modify</button>
+                                 <button ng-show="editingData[tableData.counter_id]" ng-click="update(tableData)">Update</button>  
+                                 <button  ng-click="confirm(tableData)">Confirm</button>
+
+                                 <button ng-click="deny(tableData)">Deny</button>
+                             </td>
+                         </tr>
+
+
+                     </tbody>
+                 </table>
+             </div></div>
+             <br><br><br> 
+             <div class="row">
+                <div class="col-sm-6 form-group">   
+                    <table class="table table-striped" style="display:inline;">
+                        <thead>
+                            <tr>
+                                <th>Counter No.</th>
+                                <th>Counter Name</th>
+                                <th>Desciption</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr ng-repeat="countersData in counterData">
+
+                                <td>
+                                    <div >{{countersData.primary_id | uppercase}}</div>
+
+                                </td>
+                                <td>
+                                    <div ng-hide="editingData[countersData.primary_id]">{{countersData.name | uppercase}}</div>
+                                    <div ng-show="editingData[countersData.primary_id]"><input type="text" ng-model="countersData.name" /></div>
+                                </td>
+                                <td>
+                                    <div ng-hide="editingData[countersData.primary_id]">{{countersData.description}}</div>
+                                    <div ng-show="editingData[countersData.primary_id]"><input type="text" ng-model="countersData.description" /></div>
+                                </td>
+
+                                <td>
+
+                                  <button ng-hide="editingData[countersData.primary_id]" ng-click="modifyCounter(countersData)">Modify</button>
+                                  <button ng-show="editingData[countersData.primary_id]" ng-click="updateCounter(countersData)">Update</button>
+
+                                  <button ng-click="removecounter(countersData)" ng-hide="viewField">Remove</button>
+                              </td>
+                          </tr>
+
+
+                      </tbody>
+                  </table>
+
+              </div>
+          </div>
+      </div>

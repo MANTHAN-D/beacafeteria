@@ -63,4 +63,54 @@ router.get('/read/:name',function(req,res,next){
 
 		});			
 });
+
+router.put('/update',function(req,res,next){
+		
+	var data ={};
+	var primary_id = req.body['primary_id'];
+	var name = req.body['name'];
+	var description = req.body['description'];	
+
+	if(typeof(name) != 'undefined' && typeof(description) != 'undefined' && typeof(primary_id) != 'undefined'){
+		var counter_register = Counter_Register.build({primary_id : primary_id, name : name, description : description});
+
+		counter_register.update(function(rows){
+				if(rows){
+					data.statusCode = 200;
+					res.json(data);
+				}
+				else{		 
+					res.status(500).send({status:'Counter updation failed!'});
+				}
+
+			});	
+	}
+	else{
+		res.status(500).send({status:'500'});
+	}	
+});
+
+router.post('/remove',function(req,res,next){
+		
+	var data ={};
+	var primary_id = req.body['primary_id'];	
+
+	if(typeof(primary_id) != 'undefined'){
+		var counter_register = Counter_Register.build({primary_id : primary_id});
+
+		counter_register.remove(function(rows){
+				if(rows){
+					data.statusCode = 200;
+					res.json(data);
+				}
+				else{		 
+					res.status(500).send({status:'Counter removal failed!'});
+				}
+
+			});	
+	}
+	else{
+		res.status(500).send({status:'500'});
+	}	
+});
 module.exports = router;

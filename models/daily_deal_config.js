@@ -21,11 +21,11 @@ var DailDeal_Config = sequelize.define('daily_deals_configuration',{
 		instanceMethods : {
 			configure : function(callback){
 				var counter_id = this.counter_id;
-				var deal_name = this.name;
+				var deal_name = this.deal_name;
 				var deal_conditions = this.deal_conditions;
 				var start_date = this.start_date;
-				var end_date = end_date;
-				var deal_image = this.item_image;
+				var end_date = this.end_date;
+				var deal_image = this.deal_image;
 				var price = this.price;
 
 				DailDeal_Config.create({counter_id : counter_id, deal_name : deal_name, deal_conditions : deal_conditions,
@@ -36,7 +36,43 @@ var DailDeal_Config = sequelize.define('daily_deals_configuration',{
 			},
 			getAllDeals : function(callback){				
 
-				DailDeal_Config.findAll()
+				DailDeal_Config.findAll({attributes : ['counter_id', 'deal_name', 'deal_conditions', 'start_date', 'end_date', 'price']})
+				.then(function(docs){
+					callback(docs);
+				});
+			},
+
+			getDealsOfCounter : function(callback){				
+
+				var counter_id = this.counter_id;
+
+				DailDeal_Config.findAll({where : {counter_id : counter_id}})
+				.then(function(docs){
+					callback(docs);
+				});
+			},
+
+			update : function(callback){
+				var counter_id = this.counter_id;
+				var deal_name = this.deal_name;
+				var deal_conditions = this.deal_conditions;
+				var start_date = this.start_date;
+				var end_date = this.end_date;
+				var deal_image = this.deal_image;
+				var price = this.price;
+
+				DailDeal_Config.update({deal_conditions : deal_conditions, start_date : start_date, end_date : end_date, 
+					deal_image : deal_image,price : price}, {where : {counter_id : counter_id, deal_name : deal_name}})
+				.then(function(docs){
+					callback(docs);
+				});
+			},
+
+			remove : function(callback){
+				var counter_id = this.counter_id;
+				var deal_name = this.deal_name;				
+
+				DailDeal_Config.destroy({where : {counter_id : counter_id, deal_name : deal_name}})
 				.then(function(docs){
 					callback(docs);
 				});
