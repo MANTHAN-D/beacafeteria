@@ -36,7 +36,7 @@ var DailDeal_Config = sequelize.define('daily_deals_configuration',{
 			},
 			getAllDeals : function(callback){				
 
-				DailDeal_Config.findAll()
+				DailDeal_Config.findAll({attributes : ['counter_id', 'deal_name', 'deal_conditions', 'start_date', 'end_date', 'price']})
 				.then(function(docs){
 					callback(docs);
 				});

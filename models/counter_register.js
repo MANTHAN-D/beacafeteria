@@ -4,7 +4,7 @@ var DataTypes = mysql.getDataTypes();
 
 var Counter_Register = sequelize.define('counter_register',{
 	primary_id : {type: DataTypes.INTEGER, primaryKey: true, autoIncrement : true},	
-	name : {type: DataTypes.STRING, allowNull : false},
+	name : {type: DataTypes.STRING, allowNull : false, unique : true},
 	description : {type: DataTypes.STRING},
 	created_at : {type: DataTypes.DATE, allowNull : false, defaultValue : DataTypes.NOW},
 	updated_at : {type: DataTypes.DATE, allowNull : false, defaultValue : DataTypes.NOW}
@@ -24,7 +24,7 @@ var Counter_Register = sequelize.define('counter_register',{
 
 			getCounterList : function(callback){
 				
-				Counter_Register.findAll()
+				Counter_Register.findAll({attributes : ['name','description']})
 				.then(function(docs){
 					callback(docs);
 				});

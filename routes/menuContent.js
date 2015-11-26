@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var Counter_Config = require('../models/counter_config.js').getModel();
+var Counter_Register = require('../models/counter_register.js').getModel();
 
 router.post('/create',function(req,res,next){
 		
@@ -45,6 +46,30 @@ router.get('/read', function(req, res, next) {
 		}
 		else{
 			res.status(401).send({status:'No Menu Items For This Counter!'});
+		}
+	});	
+});
+
+
+router.get('/read/:counter_name', function(req, res, next) {
+	
+	var name = req.params.counter_name;
+
+	var counter_register = Counter_Register.build({name: name});
+
+	counter_register.getCounter(function(rows){
+		if(rows){
+			var counter_id = rows.primary_id;
+			var counter_config = Counter_Config.build({counter_id : counter_id});
+
+			counter_config.getMenuList(function(menuRows){
+				if(rows){
+					res.json(menuRows);
+				}
+				else{
+					res.status(401).send({status:'No Menu Items For This Counter!'});
+				}
+			});
 		}
 	});	
 });
