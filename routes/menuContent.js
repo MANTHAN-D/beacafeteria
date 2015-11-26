@@ -6,7 +6,7 @@ var Counter_Config = require('../models/counter_config.js').getModel();
 router.post('/create',function(req,res,next){
 		
 	var data ={};
-	var counter_id = parseInt(req.body['counter_id']);
+	var counter_id = parseInt(req.session.data[0].counter);
 	var item_name = req.body['item_name'];
 	var item_rating = parseFloat(req.body['item_rating']);
 	var item_image = null;
@@ -33,29 +33,45 @@ router.post('/create',function(req,res,next){
 	}	
 });
 
-router.post('/read',function(req,res,next){
-		
-	var data ={};
-	var counter_id = parseInt(req.body['counter_id']);	
+router.get('/read', function(req, res, next) {
+	
+	var counter_id=req.session.data[0].counter;
 
-	if(typeof(counter_id) != 'undefined'){
-		var counter_config = Counter_Config.build({counter_id : counter_id});
+	var counter_config = Counter_Config.build({counter_id : counter_id});
 
-		counter_config.getMenuList(function(rows){
-				if(rows){
-					// data.status = '200';
-					res.status(200).send(rows);
-				}
-				else{		 
-					res.status(500).send({status:'No Menu Items Found!'});
-				}
-
-			});	
-	}
-	else{
-		res.status(500).send({status:'500'});
-	}	
+	counter_config.getMenuList(function(rows){
+		if(rows){
+			res.send({"results":JSON.stringify(rows)});
+		}
+		else{
+			res.status(401).send({status:'No Menu Items For This Counter!'});
+		}
+	});	
 });
+
+// router.post('/read',function(req,res,next){
+		
+// 	var data ={};
+// 	var counter_id = parseInt(req.body['counter_id']);
+
+// 	if(typeof(counter_id) != 'undefined'){
+// 		var counter_config = Counter_Config.build({counter_id : counter_id});
+
+// 		counter_config.getMenuList(function(rows){
+// 				if(rows){
+// 					// data.status = '200';
+// 					res.status(200).send(rows);
+// 				}
+// 				else{		 
+// 					res.status(500).send({status:'No Menu Items Found!'});
+// 				}
+
+// 			});	
+// 	}
+// 	else{
+// 		res.status(500).send({status:'500'});
+// 	}	
+// });
 
 router.put('/update',function(req,res,next){
 		
@@ -87,7 +103,7 @@ router.put('/update',function(req,res,next){
 	}	
 });
 
-router.delete('/remove',function(req,res,next){
+router.post('/remove',function(req,res,next){
 		
 	var data ={};
 	var counter_id = parseInt(req.body['counter_id']);

@@ -57,8 +57,9 @@ var Customer = sequelize.define('customer_details',{
 
 			approveAdminForCounter : function(callback){				
 				var primary_id = this.primary_id;
+				var counter_id = this.counter_id;
 
-				Customer.update({is_admin : 1}, {where : {primary_id : primary_id}})
+				Customer.update({is_admin : 1, counter_id : counter_id}, {where : {primary_id : primary_id}})
 				.then(function(docs){					
 					callback(docs);
 				});

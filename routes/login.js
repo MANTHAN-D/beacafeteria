@@ -29,6 +29,7 @@ router.post('/',function(req,res,next){
 						else if(rows.is_admin == 1){
 							console.log('Counter admin');
 							data.statusCode = 202;
+							req.session.data = [{email : rows.email, counter : rows.counter_id}];
 							res.json(data);
 						}
 						else{

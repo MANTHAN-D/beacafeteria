@@ -1,161 +1,293 @@
 <!DOCTYPE html>
 <html ng-app="counter_configuration">
-<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-<style>
 
- th, td {
-    border: 1px solid black;
-}
+<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+<link rel='stylesheet' href='/stylesheets/style.css' />
+
+<style>
+        .header,
+        .marketing,
+        .footer {
+          padding-right: 15px;
+          padding-left: 15px;
+        }
+        
+        
+        .header {
+          border-bottom: 1px solid #e5e5e5;
+        }
+        
+        .header h3 {
+          padding-bottom: 19px;
+          margin-top: 0;
+          margin-bottom: 0;
+          line-height: 40px;
+        }
 </style>
 
 <body>
 
-<input type="button" ng-click="add_deals()" name="add_deals" value="add deals" />
-<br><br>
+    <div  ng-controller="modifyCtrl">
+        Deal Name <input type="text" ng-model="addDeal.deal_name" >
+        Deal Conditions <input type="text" ng-model="addDeal.deal_conditions">
+        <br><br>
+        Start Date <input type="date" ng-model="addDeal.start_date" >
+        End Date <input type="date" ng-model="addDeal.end_date" >
+        Price <input type="number" ng-model="addDeal.price" >
+    <br><br>
+        <input type="button" ng-click="add_deal(addDeal)" value="Add Deal">
+    <br><br>
+        <div class="wraper" >
+
+            <table>
+                <thead>
+                    <tr>                            
+                        <th>Deal Name</th>
+                        <th>Deal Conditions</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="tableData in dealsData">
+                        <td>
+                            <div ng-hide="editingDeal[tableData.primary_id]">{{tableData.deal_name | uppercase}}</div>
+                            <div ng-show="editingDeal[tableData.primary_id]">{{tableData.deal_name | uppercase}}</div>
+                        </td>
+                        <td>
+                            <div ng-hide="editingDeal[tableData.primary_id]">{{tableData.deal_conditions}}</div>
+                            <div ng-show="editingDeal[tableData.primary_id]"><input type="text" ng-model="tableData.deal_conditions" /></div>
+                        </td>
+                        <td>
+                            <div ng-hide="editingDeal[tableData.primary_id]">{{tableData.start_date}}</div>
+                            <div ng-show="editingDeal[tableData.primary_id]"><input type="date" ng-model="tableData.start_date" /></div>
+                        </td>
+                        <td>
+                            <div ng-hide="editingDeal[tableData.primary_id]">{{tableData.end_date}}</div>
+                            <div ng-show="editingDeal[tableData.primary_id]"><input type="date" ng-model="tableData.end_date" /></div>
+                        </td>
+                        <td>
+                            <div ng-hide="editingDeal[tableData.primary_id]">{{tableData.price}}</div>
+                            <div ng-show="editingDeal[tableData.primary_id]"><input type="number" ng-model="tableData.price" /></div>
+                        </td>
+                        <td>
+                            <button ng-hide="editingDeal[tableData.primary_id]" ng-click="modifyDeal(tableData)">Modify</button>
+                            <button ng-show="editingDeal[tableData.primary_id]" ng-click="updateDeal(tableData)">Update</button>
+                            
+                            <button ng-click="removeDeal(tableData)">Remove</button>
+                        </td>
+                    </tr>                                            
+                </tbody>
+            </table>
+
+        </div>
+        
+    </div>
+<br><br><br>
 
 <div  ng-controller="modifyCtrl">
-Item Name <input type="text" ng-model="addmenu.item_name" >
-Item Rating <input type="number" ng-model="addmenu.item_rating">
-Item Price <input type="nunber" ng-model="addmenu.price" >
-
-<input type="button" ng-click="add_item(addmenu)" value="+">
-
-
+    Item Name <input type="text" ng-model="addmenu.item_name" >
+    Item Rating <input type="number" ng-model="addmenu.item_rating">
+    Item Price <input type="number" ng-model="addmenu.price" >
+<br><br>
+    <input type="button" ng-click="add_item(addmenu)" value="Add Item">
+<br><br>
     <div class="wraper" >
-    
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Menu ID</th>
-                            <th>Item</th>
-                            <th>Price</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {{tabelsData}}
-                        <tr ng-repeat="tableData in tabelsData">
-                       {{tableData.item_name}}
-                            <td>
-                                <div ng-hide="editingData[tableData.menu_id]">{{tableData.menu_id | uppercase}}</div>
-                                <div ng-show="editingData[tableData.menu_id]"><input type="text" ng-model="tableData.menu_id" /></div>
-                            </td>
-                            <td>
-                                <div ng-hide="editingData[tableData.menu_id]">{{tableData.item_name | uppercase}}</div>
-                                <div ng-show="editingData[tableData.menu_id]"><input type="text" ng-model="tableData.item_name" /></div>
-                            </td>
-                            <td>
-                                <div ng-hide="editingData[tableData.menu_id]">{{tableData.price}}</div>
-                                <div ng-show="editingData[tableData.menu_id]"><input type="text" ng-model="tableData.price" /></div>
-                            </td>
-                            
-                            <td>
-                                <button ng-hide="editingData[tableData.menu_id]" ng-click="modify(tableData)">Modify</button>
-                                <button ng-show="editingData[tableData.menu_id]" ng-click="update(tableData)">Update</button>
-                                
-                                <button ng-hide="viewField">Remove</button>
-                            </td>
-                        </tr>
-                       
-                        <tr>
-                        <td ng-hide="abc">{{results.item}}
-                        <td ng-hide="abc">{{results.price}}
-                         <td ng-hide="abc">
-                                <button ng-hide="editingData[tableData.menu_id]" ng-click="modify(tableData)">Modify</button>
-                                <button ng-show="editingData[tableData.menu_id]" ng-click="update(tableData)">Update</button>
-                                
-                                <button ng-hide="viewField">Remove</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-    
-            </div>
-    
+
+        <table>
+            <thead>
+                <tr>                            
+                    <th>Item Name</th>
+                    <th>Item Rating</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="tableData in tabelsData">
+                    <td>
+                        <div ng-hide="editingData[tableData.primary_id]">{{tableData.item_name | uppercase}}</div>
+                        <div ng-show="editingData[tableData.primary_id]">{{tableData.item_name | uppercase}}</div>
+                    </td>
+                    <td>
+                        <div ng-hide="editingData[tableData.primary_id]">{{tableData.item_rating}}</div>
+                        <div ng-show="editingData[tableData.primary_id]"><input type="number" ng-model="tableData.item_rating" /></div>
+                    </td>
+                    <td>
+                        <div ng-hide="editingData[tableData.primary_id]">{{tableData.price}}</div>
+                        <div ng-show="editingData[tableData.primary_id]"><input type="number" ng-model="tableData.price" /></div>
+                    </td>
+                    
+                    <td>
+                        <button ng-hide="editingData[tableData.primary_id]" ng-click="modify(tableData)">Modify</button>
+                        <button ng-show="editingData[tableData.primary_id]" ng-click="update(tableData)">Update</button>
+                        
+                        <button ng-click="remove(tableData)">Remove</button>
+                    </td>
+                </tr>                                            
+            </tbody>
+        </table>
+
     </div>
+    
 </div>
 
-</div>
+
+
 <script>
 var app = angular.module('counter_configuration', []);
-
-
-
-
-
-
 app.controller('modifyCtrl', ['$scope','$http', function($scope,$http){
     $scope.tabelsData= [];
-   $scope.loadvalue= function()
+    $scope.dealsData=[];
+
+    $scope.loadMenu= function()
     {
-    $http({
-    method:'GET',
-    url:'/loadvalue'
-    }).success(function(data){
-   alert("dat a in anloadvalue"+JSON.parse(data.results));
-    $scope.tabelsData=JSON.parse(data.results);
-    alert("tabelsData : "+JSON.stringify($scope.tabelsData)); 
-    });
-    
+        $http({
+            method:'GET',
+            url:'/menucontent/read'
+        }).success(function(data){
+            alert("dat a in anloadMenu"+JSON.parse(data.results));
+            $scope.tabelsData=JSON.parse(data.results);
+            alert("tabelsData : "+JSON.stringify($scope.tabelsData)); 
+        });
+        
     };
-    $scope.loadvalue();
+    $scope.loadDeals= function()
+    {
+        $http({
+            method:'GET',
+            url:'/dailydeals/read'
+        }).success(function(data){
+            alert("dat a in anloadDeals"+JSON.parse(data.results));
+            $scope.dealsData=JSON.parse(data.results);
+            alert("dealsData : "+JSON.stringify($scope.dealsData)); 
+        });
+        
+    };
+    
+    $scope.loadDeals();
+    $scope.loadMenu();    
+
     $scope.editingData = {};
-    //$scope.extra=true;
     for (var i = 0, length = $scope.tabelsData.length; i < length; i++) {
-      $scope.editingData[$scope.tabelsData[i].menu_id] = false;
+        $scope.editingData[$scope.tabelsData[i].primary_id] = false;
+    }
+
+    $scope.editingDeal = {};
+    for (var i = 0, length = $scope.dealsData.length; i < length; i++) {
+        $scope.editingDeal[$scope.dealsData[i].primary_id] = false;
     }
 
 
     $scope.modify = function(tableData){
-        $scope.editingData[tableData.menu_id] = true;
-		
-
+        $scope.editingData[tableData.primary_id] = true;		
     };
 
+    $scope.modifyDeal = function(tableData){
+        $scope.editingDeal[tableData.primary_id] = true;        
+    };
 
     $scope.update = function(tableData){
       alert("tabledata item : "+tableData.item_name);
-		$scope.editingData[tableData.menu_id] = false;
-		  $http({
-		            method: 'POST',
-		            url: '/updateItem',
-		            data:tableData
-		            }).success(function(response){
-		           		alert(JSON.stringify(response));
-		           		//$scope.extra=false;
-		           		$scope.results= response;
-		        }).error(function(error){
-		            alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
-		        });
-
+      $scope.editingData[tableData.primary_id] = false;
+	  $http({
+        method: 'PUT',
+        url: '/menucontent/update',
+        data:tableData
+        }).success(function(response){
+            alert(JSON.stringify(response));
+        	$scope.results= response;
+        }).error(function(error){
+            alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
+        });
     };
-    
-     $scope.abc=true;
-    
-    
-    
 
-
+    $scope.updateDeal = function(tableData){
+      alert("tabledata item : "+tableData.deal_name);
+      $scope.editingDeal[tableData.primary_id] = false;
+      $http({
+        method: 'PUT',
+        url: '/dailydeals/update',
+        data:tableData
+        }).success(function(response){
+            alert(JSON.stringify(response));
+            $scope.dealResults= response;
+        }).error(function(error){
+            alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
+        });
+    };    
+    
     $scope.add_item = function(addmenu) {
     
-		    	$http({
-		            method: 'POST',
-		            url: '/addItem',
-		            data:addmenu
-		            }).success(function(response){
-		           		
-		           		
-		           		alert("angular : "+JSON.stringify(response));
-		           		//$scope.abc=false;
-		           		if(response==="OK"){
-		           		window.location="/loadhome"; }
-		           		//$scope.tabelsData=JSON.parse(data.results);
-		        }).error(function(error){
-		            alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
-		        });
-		    };
+        $http({
+            method: 'POST',
+            url: '/menucontent/create',
+            data : addmenu
+        }).success(function(response){
+           		
+       		alert("angular : "+JSON.stringify(response));
+       		if(response.status==200){
+           		$scope.loadMenu();
+            }           		
+        }).error(function(error){
+            alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
+        });
+    };
+
+    $scope.add_deal = function(addDeal) {
     
-    
+        $http({
+            method: 'POST',
+            url: '/dailydeals/create',
+            data : addDeal
+        }).success(function(response){
+                
+            alert("angular : "+JSON.stringify(response));
+            if(response.status==200){
+                $scope.loadDeals();
+            }                   
+        }).error(function(error){
+            alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
+        });
+    };
+
+    $scope.remove = function(removeItem){
+        $http({
+            method: 'POST',
+            url: '/menucontent/remove',
+            data : removeItem
+        }).success(function(response){
+                
+            alert("angular : "+JSON.stringify(response));
+            if(response.status==200){
+                $scope.loadMenu();
+            }                   
+        }).error(function(error){
+            alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
+        });
+    };
+
+    $scope.removeDeal = function(removeItem){
+        $http({
+            method: 'POST',
+            url: '/dailydeals/remove',
+            data : removeItem
+        }).success(function(response){
+                
+            alert("angular : "+JSON.stringify(response));
+            if(response.status==200){
+                $scope.loadDeals();
+            }                   
+        }).error(function(error){
+            alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
+        });
+    };
 
 }]);
 
