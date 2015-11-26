@@ -24,7 +24,7 @@ var Counter_Register = sequelize.define('counter_register',{
 
 			getCounterList : function(callback){
 				
-				Counter_Register.findAll({attributes : ['name','description']})
+				Counter_Register.findAll()
 				.then(function(docs){
 					callback(docs);
 				});
@@ -56,6 +56,14 @@ var Counter_Register = sequelize.define('counter_register',{
 				var primary_id = this.primary_id;				
 
 				Counter_Register.destroy({where : {primary_id : primary_id}})
+				.then(function(docs){
+					callback(docs);
+				});
+			},
+
+			getOutletList : function(callback){
+				
+				Counter_Register.findAll({attributes : ['name','description']})
 				.then(function(docs){
 					callback(docs);
 				});

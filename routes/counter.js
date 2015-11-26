@@ -46,6 +46,24 @@ router.get('/read',function(req,res,next){
 		});			
 });
 
+router.get('/fetch',function(req,res,next){
+		
+	var data ={};		
+	
+	var counter_register = Counter_Register.build();
+
+	counter_register.getOutletList(function(rows){
+			if(rows){
+				// data.status = '200';
+				res.status(200).send(rows);
+			}
+			else{		 
+				res.status(500).send({status:'No Counters Found!'});
+			}
+
+		});			
+});
+
 router.get('/read/:name',function(req,res,next){
 		
 	var data ={};		
