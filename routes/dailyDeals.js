@@ -3,6 +3,10 @@ var router = express.Router();
 
 var DailDeal_Config = require('../models/daily_deal_config.js').getModel();
 
+router.get('/addDeals', function(req, res, next) {
+  res.render('addDeals', { title: 'Add Deals' });
+});
+
 router.post('/create',function(req,res,next){
 		
 	var data ={};
