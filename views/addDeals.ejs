@@ -56,16 +56,16 @@
                 <ul class="nav navbar-nav">
                     
 					<li>
-                        <a href="#" ng-click="home()" class="active" name="signup" >Home</a>
+                        <a href="#" ng-click="home()" name="signup" >Home</a>
                     </li>
                     <li>
-                      <a href="#" ng-click="registerDeal()">Add Daily Deals</a>
+                      <a href="#" ng-click="registercounter()" class="active">Add Daily Deals</a>
                     </li>
                     
 					
 					
                     <li>
-                                <li><a href='#' style="margin-left:500px;" ng-click="logout()">Log Out</a></li>
+                                <li><a href='#' ng-click="logout()" style="margin-left:500px;">Log Out</a></li>
                     </li>
                 </ul>
             </div>
@@ -88,28 +88,40 @@
 						
 
 <div class="col-sm-12 form-group" >    
-          <h1>Add Menu Items</h1>
+          <h1>Add New Deals</h1>
 
         <form>
 					<div class="col-sm-12">
 						<div class="row">
 							<div class="col-sm-4 form-group">
-								<label class="navbar-brand">Item Name</label>
+								<label class="navbar-brand">Deal Name</label>
 								
-								<input type="text" ng-model="addmenu.item_name" placeholder="Enter Item Name .." class="form-control">
+								<input type="text" ng-model="addDeal.deal_name" placeholder="Enter Deal Name .." class="form-control">
 							</div>
 							<div class="col-sm-4 form-group">
-								<label class="navbar-brand">Rating</label>
-								<input type="text" ng-model="addmenu.item_rating" placeholder="Enter Rating .." class="form-control">
+								<label class="navbar-brand">Deal COnditions</label>
+								<input type="text" ng-model="addDeal.deal_conditions" placeholder="Enter Conditions .." class="form-control">
 							</div>
 							<div class="col-sm-4 form-group">
-								<label class="navbar-brand">Price</label>
-								<input type="text" ng-model="addmenu.price" placeholder="Enter Price Here.." class="form-control">
+								<label class="navbar-brand">price</label>
+								<input type="number" ng-model="addDeal.price" placeholder="Enter Price Here.." class="form-control">
 							</div>
 						</div>
 						<div class="row">
+							
+							<div class="col-sm-6 form-group">
+								<label class="navbar-brand">Start Date</label>
+								<input type="date" ng-model="addDeal.start_date" placeholder="Enter Start Date .." class="form-control">
+							</div>
+							<div class="col-sm-6 form-group">
+								<label class="navbar-brand">End Date</label>
+								<input type="date" ng-model="addDeal.end_date" placeholder="Enter End Date.." class="form-control">
+							</div>
+							
+						</div>
+						<div class="row">
 					
-					<button type="button" ng-click="add_item(addmenu)" class="btn btn-lg btn-info "><b>Add Item</b></button>					
+					<button type="button" ng-click="add_deal(addDeal)" class="btn btn-lg btn-info "><b>Add Deal</b></button>					
 					</div>
 						</div>
 						</form>
@@ -141,40 +153,49 @@
 						
 
 <div class="col-sm-12 form-group" >    
-          <h1>Menu Items</h1>
+          <h1>Daily Deals</h1>
 
         <table class="table table-striped " >
             <thead>
                 <tr>                            
-                    <th>Item Name</th>
-                    <th>Item Rating</th>
-                    <th>Price</th>
+                    <th>Deal Name</th>
+                    <th>Deal Conditions</th>
+                    <th>Start date</th>
+					<th>End Date</th>
+					<th>Price</th>
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody align="left">
-                <tr ng-repeat="tableData in tabelsData">
-                    <td>
-                        <div ng-hide="editingData[tableData.primary_id]">{{tableData.item_name | uppercase}}</div>
-                        <div ng-show="editingData[tableData.primary_id]">{{tableData.item_name | uppercase}}</div>
-                    </td>
-                    <td>
-                        <div ng-hide="editingData[tableData.primary_id]">{{tableData.item_rating}}</div>
-                        <div ng-show="editingData[tableData.primary_id]"><input type="number" ng-model="tableData.item_rating" /></div>
-                    </td>
-                    <td>
-                        <div ng-hide="editingData[tableData.primary_id]">{{tableData.price}}</div>
-                        <div ng-show="editingData[tableData.primary_id]"><input type="number" ng-model="tableData.price" /></div>
-                    </td>
-                    
-                    <td>
-                        <button ng-hide="editingData[tableData.primary_id]" ng-click="modify(tableData)" class=" btn .btn-danger">Modify</button>
-                        <button ng-show="editingData[tableData.primary_id]" ng-click="update(tableData)" class=" btn .btn-danger">Update</button>
-                        
-                        <button ng-click="remove(tableData)" class=" btn .btn-danger">Remove</button>
-                    </td>
-                </tr>                                            
-            </tbody>
+             <tbody align="left">
+                    <tr ng-repeat="tableData in dealsData">
+                        <td>
+                            <div ng-hide="editingDeal[tableData.primary_id]">{{tableData.deal_name | uppercase}}</div>
+                            <div ng-show="editingDeal[tableData.primary_id]">{{tableData.deal_name | uppercase}}</div>
+                        </td>
+                        <td>
+                            <div ng-hide="editingDeal[tableData.primary_id]">{{tableData.deal_conditions}}</div>
+                            <div ng-show="editingDeal[tableData.primary_id]"><input type="text" ng-model="tableData.deal_conditions" /></div>
+                        </td>
+                        <td>
+                            <div ng-hide="editingDeal[tableData.primary_id]">{{(tableData.start_date).substring(0,10)}}</div>
+                            <div ng-show="editingDeal[tableData.primary_id]"><input type="date" ng-model="tableData.start_date" /></div>
+                        </td>
+                        <td>
+                            <div ng-hide="editingDeal[tableData.primary_id]">{{(tableData.end_date).substring(0,10)}}</div>
+                            <div ng-show="editingDeal[tableData.primary_id]"><input type="date" ng-model="tableData.end_date" /></div>
+                        </td>
+                        <td>
+                            <div ng-hide="editingDeal[tableData.primary_id]">{{tableData.price}}</div>
+                            <div ng-show="editingDeal[tableData.primary_id]"><input type="number" ng-model="tableData.price" /></div>
+                        </td>
+                        <td>
+                            <button ng-hide="editingDeal[tableData.primary_id]" ng-click="modifyDeal(tableData)" class=" btn .btn-danger">Modify</button>
+                            <button ng-show="editingDeal[tableData.primary_id]" ng-click="updateDeal(tableData)" class=" btn .btn-danger">Update</button>
+                            
+                            <button ng-click="removeDeal(tableData)" class=" btn .btn-danger">Remove</button>
+                        </td>
+                    </tr>                                            
+                </tbody>
         </table>
 
     
@@ -202,122 +223,6 @@
             </div>
         </div>
     </footer>
-
-
-
-
-
-    
-
-    <div  ng-controller="modifyCtrl">
-        Deal Name <input type="text" ng-model="addDeal.deal_name" >
-        Deal Conditions <input type="text" ng-model="addDeal.deal_conditions">
-        <br><br>
-        Start Date <input type="date" ng-model="addDeal.start_date" >
-        End Date <input type="date" ng-model="addDeal.end_date" >
-        Price <input type="number" ng-model="addDeal.price" >
-    <br><br>
-        <input type="button" ng-click="add_deal(addDeal)" value="Add Deal">
-    <br><br>
-        <div class="wraper" >
-
-            <table>
-                <thead>
-                    <tr>                            
-                        <th>Deal Name</th>
-                        <th>Deal Conditions</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Price</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="tableData in dealsData">
-                        <td>
-                            <div ng-hide="editingDeal[tableData.primary_id]">{{tableData.deal_name | uppercase}}</div>
-                            <div ng-show="editingDeal[tableData.primary_id]">{{tableData.deal_name | uppercase}}</div>
-                        </td>
-                        <td>
-                            <div ng-hide="editingDeal[tableData.primary_id]">{{tableData.deal_conditions}}</div>
-                            <div ng-show="editingDeal[tableData.primary_id]"><input type="text" ng-model="tableData.deal_conditions" /></div>
-                        </td>
-                        <td>
-                            <div ng-hide="editingDeal[tableData.primary_id]">{{tableData.start_date}}</div>
-                            <div ng-show="editingDeal[tableData.primary_id]"><input type="date" ng-model="tableData.start_date" /></div>
-                        </td>
-                        <td>
-                            <div ng-hide="editingDeal[tableData.primary_id]">{{tableData.end_date}}</div>
-                            <div ng-show="editingDeal[tableData.primary_id]"><input type="date" ng-model="tableData.end_date" /></div>
-                        </td>
-                        <td>
-                            <div ng-hide="editingDeal[tableData.primary_id]">{{tableData.price}}</div>
-                            <div ng-show="editingDeal[tableData.primary_id]"><input type="number" ng-model="tableData.price" /></div>
-                        </td>
-                        <td>
-                            <button ng-hide="editingDeal[tableData.primary_id]" ng-click="modifyDeal(tableData)">Modify</button>
-                            <button ng-show="editingDeal[tableData.primary_id]" ng-click="updateDeal(tableData)">Update</button>
-                            
-                            <button ng-click="removeDeal(tableData)">Remove</button>
-                        </td>
-                    </tr>                                            
-                </tbody>
-            </table>
-
-        </div>
-        
-    </div>
-<br><br><br>
-
-<div  ng-controller="modifyCtrl">
-    Item Name <input type="text" ng-model="addmenu.item_name" >
-    Item Rating <input type="number" ng-model="addmenu.item_rating">
-    Item Price <input type="number" ng-model="addmenu.price" >
-<br><br>
-    <input type="button" ng-click="add_item(addmenu)" value="Add Item">
-<br><br>
-    <div class="wraper" >
-
-        <table class="table table-striped ">
-            <thead>
-                <tr>                            
-                    <th>Item Name</th>
-                    <th>Item Rating</th>
-                    <th>Price</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="tableData in tabelsData">
-                    <td>
-                        <div ng-hide="editingData[tableData.primary_id]">{{tableData.item_name | uppercase}}</div>
-                        <div ng-show="editingData[tableData.primary_id]">{{tableData.item_name | uppercase}}</div>
-                    </td>
-                    <td>
-                        <div ng-hide="editingData[tableData.primary_id]">{{tableData.item_rating}}</div>
-                        <div ng-show="editingData[tableData.primary_id]"><input type="number" ng-model="tableData.item_rating" /></div>
-                    </td>
-                    <td>
-                        <div ng-hide="editingData[tableData.primary_id]">{{tableData.price}}</div>
-                        <div ng-show="editingData[tableData.primary_id]"><input type="number" ng-model="tableData.price" /></div>
-                    </td>
-                    
-                    <td>
-                        <button ng-hide="editingData[tableData.primary_id]" ng-click="modify(tableData)">Modify</button>
-                        <button ng-show="editingData[tableData.primary_id]" ng-click="update(tableData)">Update</button>
-                        
-                        <button ng-click="remove(tableData)">Remove</button>
-                    </td>
-                </tr>                                            
-            </tbody>
-        </table>
-
-    </div>
-    
-</div>
-
-
-
 <script>
 var app = angular.module('counter_configuration', []);
 app.controller('modifyCtrl', ['$scope','$http', function($scope,$http){
@@ -466,24 +371,17 @@ app.controller('modifyCtrl', ['$scope','$http', function($scope,$http){
             alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
         });
     };
-	
-	$scope.registerDeal = function(){
-	 window.location='../dailydeals/addDeals';
-	}
-	
 	$scope.home = function(){
-        window.location='./admin/counterAdmin';
+        window.location='../admin/counterAdmin';
     };
 	
 	$scope.logout = function(){
         window.location='/logout';
     };
-	
 
 }]);
 
 
 </script> 
-
 </body>
 </html>
