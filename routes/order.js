@@ -93,25 +93,32 @@ router.put('/approve',function(req,res,next){
 		order.closeOrder(function (rows){
 				if(rows){
 					
-					var customer_id = rows.customer_id;
-					var customer = Customer.build({primary_id : customer_id});
+					order.getAOrder(function (findRecord){
+						if(findRecord){
+							var customer_id = findRecord.customer_id;
+							var customer = Customer.build({primary_id : customer_id});
 
-					customer.fetchOnCustomerId(function (record){
-						if(record){
-							var message = new gcm.Message();
-							message.addData('message','Your order is ready');
+							customer.fetchOnCustomerId(function (record){
+								if(record){
+									var message = new gcm.Message();
+									message.addData('message','Your order is ready');
 
-							var regTokens = [];
-							regTokens.push(record.registration_token);
-							console.log(regTokens);
+									var regTokens = [];
+									regTokens.push(record.registration_token);
+									console.log(regTokens);
 
-							sender.send(message, { registrationTokens : regTokens }, function (err, response) {
-							    if(err) console.log(err);
-							    else    console.log(response);
-							});							
+									sender.send(message, { registrationTokens : regTokens }, function (err, response) {
+									    if(err) console.log(err);
+									    else    console.log(response);
+									});							
+								}
+								res.status(200).send({status : 'Order updated successfully'});
+							});
 						}
-						res.status(200).send({status : 'Order updated successfully'});
-					});					
+						else{
+							res.status(200).send({status : 'No such Order'});
+						}						
+					});										
 				}
 				else{		 
 					res.status(500).send({status:'No Orders Found!'});

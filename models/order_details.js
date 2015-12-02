@@ -29,7 +29,7 @@ var Order = sequelize.define('order_details',{
 				Customer.findOne({where : {email : email}})
 				.then(function(docs){
 					if(docs){
-						var customer_id = docs.customer_id;					
+						var customer_id = docs.primary_id;					
 
 						Order.create({counter_id : counter_id, customer_id : customer_id, menu_items : menu_items, daily_deals_flag : daily_deals_flag,
 						 amount : amount})
@@ -51,7 +51,7 @@ var Order = sequelize.define('order_details',{
 				.then(function(docs){
 					
 					if(docs){
-						var customer_id = docs.customer_id;					
+						var customer_id = docs.primary_id;		
 						
 						// Order.find({where : {customer_id : customer_id}})
 						// .then(function(docs){
@@ -74,7 +74,7 @@ var Order = sequelize.define('order_details',{
 				var primary_id = this.primary_id;
 
 				Order.update({order_status : 0}, {where : {primary_id : primary_id}})
-				.then(function(docs){					
+				.then(function(docs){								
 					callback(docs);
 				});
 			},
@@ -94,6 +94,15 @@ var Order = sequelize.define('order_details',{
 				sequelize.query("SELECT `od`.*, `cd`.name FROM order_details od, customer_details cd WHERE od.customer_id = cd.primary_id and od.counter_id = "+counter_id, 
 					{ type: sequelize.QueryTypes.SELECT })
 				.then(function(docs){
+					callback(docs);
+				});
+			},
+
+			getAOrder : function(callback){
+				var primary_id = this.primary_id;
+
+				Order.findOne({where : {primary_id : primary_id}})
+				.then(function(docs){										
 					callback(docs);
 				});
 			}
