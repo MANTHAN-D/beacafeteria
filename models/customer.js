@@ -45,6 +45,15 @@ var Customer = sequelize.define('customer_details',{
 				});
 			},
 
+			fetchOnCustomerId : function(callback){
+				var primary_id = this.primary_id;
+
+				Customer.findOne({where : {primary_id : primary_id}})
+				.then(function(docs){					
+					callback(docs);
+				});
+			},
+
 			fetchOnCounterId : function(callback){
 				var counter_id = this.counter_id;
 

@@ -1,7 +1,11 @@
 var express = require('express');
+var gcm = require('node-gcm');
 var router = express.Router();
 
+var sender = new gcm.Sender('AIzaSyDSX_kN3bRgdZH3HTcPdcRKEe3ZEUWu_SI');
+
 var Order = require('../models/order_details.js').getModel();
+var Customer = require('../models/customer.js').getModel();
 
 router.get('/viewOrders', function(req, res, next) {
   res.render('viewOrders', { title: 'View Orders',counter:req.session.data.counter });
@@ -88,8 +92,26 @@ router.put('/approve',function(req,res,next){
 
 		order.closeOrder(function (rows){
 				if(rows){
-					// data.status = '200';
-					res.status(200).send(rows);
+					
+					var customer_id = rows.customer_id;
+					var customer = Customer.build({primary_id : customer_id});
+
+					customer.fetchOnCustomerId(function (record){
+						if(record){
+							var message = new gcm.Message();
+							message.addData('message','Your order is ready');
+
+							var regTokens = [];
+							regTokens.push(record.registration_token);
+							console.log(regTokens);
+
+							sender.send(message, { registrationTokens : regTokens }, function (err, response) {
+							    if(err) console.log(err);
+							    else    console.log(response);
+							});							
+						}
+						res.status(200).send({status : 'Order updated successfully'});
+					});					
 				}
 				else{		 
 					res.status(500).send({status:'No Orders Found!'});

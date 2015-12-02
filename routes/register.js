@@ -24,15 +24,7 @@ router.post('/',function(req,res,next){
 		var customer = Customer.build({name : name, email : email, phone : phone, password : password});
 
 		customer.register(function(rows){
-				if(rows){
-					
-					var message = new gcm.Message();
-					message.addData('message','Registration successfull');
-
-					sender.sendNoRetry(message, { topic: '/topics/global' }, function (err, response) {
-					    if(err) console.log(err);
-					    else    console.log(response);
-					});
+				if(rows){					
 
 					data.status = '200';
 					res.json({status : '200'});
@@ -61,7 +53,19 @@ router.post('/token',function(req,res,next){
 
 		customer.addRegistrationToken(function(rows){
 				if(rows){
-										
+						
+					var message = new gcm.Message();
+					message.addData('message','Token Registration successfull');
+
+					var regTokens = [];
+					regTokens.push(rows.registration_token);
+					console.log(regTokens);
+
+					sender.send(message, { registrationTokens : regTokens }, function (err, response) {
+					    if(err) console.log(err);
+					    else    console.log(response);
+					});
+
 					data.status = '200';
 					res.json({status : '200'});
 
