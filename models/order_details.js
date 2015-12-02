@@ -28,31 +28,45 @@ var Order = sequelize.define('order_details',{
 
 				Customer.findOne({where : {email : email}})
 				.then(function(docs){
-					var customer_id = docs.customer_id;					
+					if(docs){
+						var customer_id = docs.customer_id;					
 
-					Order.create({counter_id : counter_id, customer_id : customer_id, menu_items : menu_items, daily_deals_flag : daily_deals_flag,
-					 amount : amount})
-					.then(function(docs){
+						Order.create({counter_id : counter_id, customer_id : customer_id, menu_items : menu_items, daily_deals_flag : daily_deals_flag,
+						 amount : amount})
+						.then(function(docs){
+							callback(docs);
+						});	
+					}
+					else{
 						callback(docs);
-					});
+					}
+					
 				});			
 			},
 
 			getMyOrders : function(email,callback){				
 
+
 				Customer.findOne({where : {email : email}})
 				.then(function(docs){
-					var customer_id = docs.customer_id;					
-
-					// Order.find({where : {customer_id : customer_id}})
-					// .then(function(docs){
-					// 	callback(docs);
-					// });
-					sequelize.query("SELECT `cr`.name, `od`.menu_items, `od`.amount  FROM order_details od, counter_register cr WHERE od.counter_id = cr.primary_id and od.customer_id = "+customer_id, 
-						{ type: sequelize.QueryTypes.SELECT })
-					.then(function(docs){
+					
+					if(docs){
+						var customer_id = docs.customer_id;					
+						
+						// Order.find({where : {customer_id : customer_id}})
+						// .then(function(docs){
+						// 	callback(docs);
+						// });
+						sequelize.query("SELECT `cr`.name, `od`.menu_items, `od`.amount  FROM order_details od, counter_register cr WHERE od.counter_id = cr.primary_id and od.customer_id = "+customer_id, 
+							{ type: sequelize.QueryTypes.SELECT })
+						.then(function(docs){
+							callback(docs);
+						});		
+					}
+					else{
 						callback(docs);
-					});
+					}
+					
 				});								
 			},
 

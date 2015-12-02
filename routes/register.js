@@ -58,8 +58,8 @@ router.post('/token',function(req,res,next){
 					message.addData('message','Token Registration successfull');
 
 					var regTokens = [];
-					regTokens.push(rows.registration_token);
-					console.log(regTokens);
+
+					regTokens.push(registration_token);
 
 					sender.send(message, { registrationTokens : regTokens }, function (err, response) {
 					    if(err) console.log(err);

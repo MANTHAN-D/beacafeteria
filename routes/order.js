@@ -44,7 +44,7 @@ router.post('/create',function(req,res,next){
 router.post('/read',function(req,res,next){
 		
 	var data ={};
-	var email = req.body['email'];	
+	var email = req.body['email'];
 
 	if(typeof(email) != 'undefined'){
 		var order = Order.build();
