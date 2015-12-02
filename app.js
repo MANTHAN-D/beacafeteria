@@ -9,7 +9,7 @@ var session=require('client-sessions');
 var routes = require('./routes/index');
 var login = require('./routes/login');
 var register = require('./routes/register');
-var order = require('./routes/placeOrder');
+var order = require('./routes/order');
 var dailyDeals = require('./routes/dailyDeals');
 var menuContent = require('./routes/menuContent');
 var counter = require('./routes/counter');
@@ -20,9 +20,7 @@ var admin = require('./routes/admin')
 //Server_Api key : AIzaSyDSX_kN3bRgdZH3HTcPdcRKEe3ZEUWu_SI
 //sender_id : 671150531291
 
-var app = express();
-
-
+var app = express(); 
 
 // view engine setup
 //app.set('port', process.env.PORT || 3000);

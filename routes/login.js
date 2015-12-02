@@ -1,5 +1,7 @@
 var express = require('express');
+
 var router = express.Router();
+    
 
 var Customer = require('../models/customer.js').getModel();
 
@@ -9,7 +11,7 @@ router.post('/',function(req,res,next){
 	var email = req.body['email'];
 	var password = req.body['password'];
 
-	if(typeof(email) != 'undefined' && typeof(password) != 'undefined'){
+	if(typeof(email) != 'undefined' && typeof(password) != 'undefined'){		
 		
 		if(email == 'admin@beecafeteria.net' && password == 'password@1'){
 			console.log('Main admin');

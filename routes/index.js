@@ -50,7 +50,7 @@ router.post('/registerAdmin',function(req,res,next){
 });
 
 router.get('/logout', function(req, res, next) {
-  	req.session.data.destroy();
+  	req.session.destroy();
 	res.redirect('/');
 });					
 

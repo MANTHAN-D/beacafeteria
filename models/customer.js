@@ -1,4 +1,7 @@
 var mysql = require('../routes/mysql');
+var crypto = require('crypto');
+var salt = "!@272MySeCrEtSALTsTrInG!@272";
+
 var sequelize = mysql.getSequelize();
 var DataTypes = mysql.getDataTypes();
 
@@ -12,6 +15,7 @@ var Customer = sequelize.define('customer_details',{
 	phone : {type: DataTypes.BIGINT(10), allowNull : false},
 	password : {type: DataTypes.STRING, allowNull : false},
 	is_admin : {type: DataTypes.BOOLEAN},
+	registration_token : {type: DataTypes.STRING},
 	created_at : {type: DataTypes.DATE, allowNull : false, defaultValue : DataTypes.NOW},
 	updated_at : {type: DataTypes.DATE, allowNull : false, defaultValue : DataTypes.NOW}
 },	{
@@ -22,7 +26,7 @@ var Customer = sequelize.define('customer_details',{
 				var name = this.name;
 				var email = this.email;
 				var phone = this.phone;
-				var password = this.password;
+				var password = crypto.createHash('sha512').update(salt + this.password + salt).digest("hex");
 				var is_admin = this.is_admin;
 
 				Customer.create({name : name, email : email, phone : phone, password : password, is_admin : is_admin})
@@ -32,7 +36,10 @@ var Customer = sequelize.define('customer_details',{
 			},			
 
 			validate : function(email,password,callback){
-				Customer.findOne({where : {email : email, password : password}})
+				
+				var encryptedPassword = crypto.createHash('sha512').update(salt + password + salt).digest("hex");
+
+				Customer.findOne({where : {email : email, password : encryptedPassword}})
 				.then(function(docs){					
 					callback(docs);
 				});
@@ -72,7 +79,19 @@ var Customer = sequelize.define('customer_details',{
 				.then(function(docs){					
 					callback(docs);
 				});
+			},
+
+			addRegistrationToken : function(callback){
+				var email = this.email;
+				var registration_token = this.registration_token;
+
+				Customer.update({registration_token : registration_token}, {where : {email : email}})
+				.then(function(docs){					
+					callback(docs);
+				});
+
 			}
+
 
 		}
 	}
