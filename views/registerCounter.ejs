@@ -58,16 +58,11 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#" ng-click="home()" name="signup" >HOME</a>
-                    </li>
+                        <a href="#" ng-click="home()" name="signup" >Home</a>
+                    </li>                                    
+
                     <li>
-                        <a href="#"   name="" ></a>
-                    </li>
-                    <li>
-                        <a href="#"></a>
-                    </li>
-                    <li>
-                        <a href="#" ng-click="logout()">LOGOUT</a>
+                        <li><a href='#' ng-click="logout()">Log Out</a></li>
                     </li>
                 </ul>
             </div>
@@ -98,7 +93,12 @@
 					<div class="form-group">
 						<label class="navbar-brand">Counter Description</label>
 						<input type="text" value="" placeholder="Counter description here.." ng-model="counter.description" class="form-control" >
-					</div>		
+					</div>
+
+                    <div class="form-group">
+                        <label class="navbar-brand">Counter Rating</label>
+                        <input type="number" value="" placeholder="Counter rating here.." ng-model="counter.rating" class="form-control" >
+                    </div>      		
 					
 					<div>
 					
@@ -133,7 +133,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>xxxxx</p>
+                    <p>&copy; Copyright SJSU Fall'15, CMPE-272-Team-16</p>
                 </div>
             </div>
         </div>
@@ -165,21 +165,22 @@
 		            }).success(function(data){
 		           		if(data.statusCode=200)
 		           		{
-		           		alert("success");
 		           		window.location='/admin/loadadminejs';
 		           		}
 		           		else
 		           		{
-		           		alert("registration failed");
+		           		alert("Counter creation failed. Try again.");
 		           		window.location='/admin/counterSignUp';
 		           		}
 		           		
 		        }).error(function(error){
-		            alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
+		            alert("Something went wrong. Please try again.");
 		        });
-		    };
+		    };    
     
 });
+
+
     </script>
     
   </body>

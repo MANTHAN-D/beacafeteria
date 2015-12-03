@@ -57,7 +57,7 @@ var Order = sequelize.define('order_details',{
 						// .then(function(docs){
 						// 	callback(docs);
 						// });
-						sequelize.query("SELECT `cr`.name, `od`.menu_items, `od`.amount  FROM order_details od, counter_register cr WHERE od.counter_id = cr.primary_id and od.customer_id = "+customer_id, 
+						sequelize.query("SELECT `cr`.name, `od`.menu_items, `od`.amount, `od`.order_status, `od`.created_at FROM order_details od, counter_register cr WHERE od.counter_id = cr.primary_id and od.customer_id = "+customer_id, 
 							{ type: sequelize.QueryTypes.SELECT })
 						.then(function(docs){
 							callback(docs);

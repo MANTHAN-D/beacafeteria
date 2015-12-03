@@ -63,6 +63,15 @@ var Customer = sequelize.define('customer_details',{
 				});
 			},
 
+			fetchOnEmailId : function(callback){
+				var email = this.email;
+
+				Customer.findOne({where : {email : email}})
+				.then(function(docs){					
+					callback(docs);
+				});
+			},
+
 			fetchNotYetAdmin : function(callback){				
 
 				Customer.findAll({where : {is_admin : 0}})
@@ -99,6 +108,14 @@ var Customer = sequelize.define('customer_details',{
 					callback(docs);
 				});
 
+			},
+
+			fetchAllTokenBearers : function(callback){				
+
+				Customer.findAll({where : {registration_token : {$ne : null}}})
+				.then(function(docs){					
+					callback(docs);
+				});
 			}
 
 

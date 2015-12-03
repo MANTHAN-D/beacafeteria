@@ -4,7 +4,13 @@ var router = express.Router();
 var DailDeal_Config = require('../models/daily_deal_config.js').getModel();
 
 router.get('/addDeals', function(req, res, next) {
-  res.render('addDeals', { title: 'Add Deals' });
+  if(req.session.data){
+  	res.render('addDeals', { title: 'Add Deals' });	
+  }
+  else{
+  	res.render('loginAdmin', { title: 'Admin Login' });
+  }
+  
 });
 
 router.post('/create',function(req,res,next){
@@ -13,8 +19,8 @@ router.post('/create',function(req,res,next){
 	var counter_id = parseInt(req.session.data[0].counter); 
 	var deal_name = req.body['deal_name'];
 	var deal_conditions = req.body['deal_conditions'];
-	var start_date = req.body['start_date'];
-	var end_date = req.body['end_date'];
+	var start_date = new Date(req.body['start_date']);
+	var end_date = new Date(req.body['end_date']);
 	var deal_image = null;
 	var price = parseFloat(req.body['price']);	
 
@@ -50,6 +56,14 @@ router.get('/fetch',function(req,res,next){
 	dailDeal.getAllDeals(function(rows){
 			if(rows){
 				// data.status = '200';
+				for (var i = 0; i < rows.length; i++) {
+					rows[i].dataValues.start_date = (rows[i].dataValues.start_date.getMonth() + 1) 
+					+ '/' + rows[i].dataValues.start_date.getDate() + '/' +  rows[i].dataValues.start_date.getFullYear();
+
+					rows[i].dataValues.end_date = (rows[i].dataValues.end_date.getMonth() + 1) 
+					+ '/' + rows[i].dataValues.end_date.getDate() + '/' +  rows[i].dataValues.end_date.getFullYear();					
+					
+				};
 				res.status(200).send(rows);
 			}
 			else{		 
@@ -70,7 +84,8 @@ router.get('/read',function(req,res,next){
 	dailDeal.getDealsOfCounter(function(rows){
 			if(rows){
 				// data.status = '200';
-				res.send({"results":JSON.stringify(rows)});
+				// res.send({"results":JSON.stringify(rows)});
+				res.send(rows);
 			}
 			else{		 
 				res.status(500).send({status:'No Daily Deals For This Counter!'});

@@ -1,10 +1,47 @@
 var express = require('express');
+var gcm = require('node-gcm');
 var router = express.Router();
+
+var sender = new gcm.Sender('AIzaSyDSX_kN3bRgdZH3HTcPdcRKEe3ZEUWu_SI');
 
 var Counter_Config = require('../models/counter_config.js').getModel();
 var Counter_Register = require('../models/counter_register.js').getModel();
+var Customer = require('../models/customer.js').getModel();
 
-router.post('/create',function(req,res,next){
+router.post('/notification/:beacon_name',function (req,res,next){
+	var beacon_name = req.params.beacon_name;
+	var email = req.body['email'];
+
+	var message = new gcm.Message();	
+
+	if(beacon_name == 'First Beacon'){
+		message.addData('message','Check-out Taco Bell\'s menu');
+	}
+	else if(beacon_name == 'Second Beacon'){
+		message.addData('message','Check-out Panda Express\'s menu');
+	}
+	else{
+		// can be further configured
+	}
+	var customer = Customer.build({email : email});
+
+	customer.fetchOnEmailId(function (record){
+		if(record){		
+			var regTokens = [];
+			regTokens.push(record.registration_token);
+			console.log(regTokens);
+
+			sender.send(message, { registrationTokens : regTokens }, function (err, response) {
+			    if(err) console.log(err);
+			    else    console.log(response);
+			});							
+		}
+		res.status(200).send({status : 'Menu notification sent'});
+	});
+
+});
+
+router.post('/create',function (req,res,next){
 		
 	var data ={};
 	var counter_id = parseInt(req.session.data[0].counter);

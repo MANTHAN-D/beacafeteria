@@ -61,10 +61,10 @@ router.post('/token',function(req,res,next){
 
 					regTokens.push(registration_token);
 
-					sender.send(message, { registrationTokens : regTokens }, function (err, response) {
-					    if(err) console.log(err);
-					    else    console.log(response);
-					});
+					// sender.send(message, { registrationTokens : regTokens }, function (err, response) {
+					//     if(err) console.log(err);
+					//     else    console.log(response);
+					// });
 
 					data.status = '200';
 					res.json({status : '200'});

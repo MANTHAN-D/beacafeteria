@@ -8,7 +8,13 @@ var Order = require('../models/order_details.js').getModel();
 var Customer = require('../models/customer.js').getModel();
 
 router.get('/viewOrders', function(req, res, next) {
-  res.render('viewOrders', { title: 'View Orders',counter:req.session.data.counter });
+  if(req.session.data){
+  	res.render('viewOrders', { title: 'View Orders',counter:req.session.data.counter });	
+  }
+  else{
+  	res.render('loginAdmin', { title: 'Admin Login' });
+  }
+  
 });
 
 router.post('/create',function(req,res,next){
@@ -52,6 +58,22 @@ router.post('/read',function(req,res,next){
 		order.getMyOrders(email, function (rows){
 				if(rows){
 					// data.status = '200';
+					for (var i = 0; i < rows.length; i++) {
+						
+						rows[i].created_at = (rows[i].created_at.getMonth() + 1) 
+						+ '/' + rows[i].created_at.getDate() + '/' +  rows[i].created_at.getFullYear();					
+
+						if(rows[i].order_status == 0){
+							rows[i].order_status = 'Closed';
+						}
+						else if(rows[i].order_status == 1){
+							rows[i].order_status = 'In Process';
+						}
+						else{
+							rows[i].order_status = 'Declined';
+						}
+						
+					};
 					res.status(200).send(rows);
 				}
 				else{		 

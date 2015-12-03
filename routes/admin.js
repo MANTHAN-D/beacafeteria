@@ -1,24 +1,59 @@
 var express = require('express');
+var gcm = require('node-gcm');
+var sender = new gcm.Sender('AIzaSyDSX_kN3bRgdZH3HTcPdcRKEe3ZEUWu_SI');
+
 var router = express.Router();
 
 var Customer = require('../models/customer.js').getModel();
 var Counter_Register = require('../models/counter_register.js').getModel();
 var Counter_Cofig = require('../models/counter_config.js').getModel();
 
+router.get('/broadCastPage', function(req, res, next) {
+  if(req.session.sysadmin){
+    res.render('broadCast', { title: 'Message Broadcast' });
+  }
+  else{
+    res.render('loginAdmin', { title: 'Admin Login' });
+  }
+  
+});
+
 router.get('/counterSignUp', function(req, res, next) {
-  res.render('registerCounter', { title: 'Counter Registration' });
+  if(req.session.sysadmin){
+    res.render('registerCounter', { title: 'Counter Registration' });
+  }
+  else{
+    res.render('loginAdmin', { title: 'Admin Login' });
+  }
+  
 });
 
 router.get('/dailyDealSignUp', function(req, res, next) {
-  res.render('add_deals', { title: 'Configure Deals' });
+  if(req.session.sysadmin){
+    res.render('add_deals', { title: 'Configure Deals' });
+  }
+  else{
+    res.render('loginAdmin', { title: 'Admin Login' }); 
+  }
 });
 
 router.get('/loadadminejs', function(req, res, next) {
-  res.render('mainAdminHome', { title: 'Admin Home' });
+  if(req.session.sysadmin){
+    res.render('mainAdminHome', { title: 'Admin Home' });
+  }
+  else{
+    res.render('loginAdmin', { title: 'Admin Login' });
+  }    
 });
 
 router.get('/counterAdmin', function(req, res, next) {
-  res.render('adminHome', { title: 'Counter Admin Home' });
+  if(req.session.data){
+    res.render('adminHome', { title: 'Counter Admin Home' });
+  }
+  else{
+    res.render('loginAdmin', { title: 'Admin Login' });
+  }
+  
 });
 
 // router.get('/loadhome', function(req, res, next) {
@@ -93,6 +128,35 @@ router.post('/denyAdmin', function(req, res, next) {
 	customer.removeCustomer(function(rows){
 		res.send();
 	});
+});
+
+// broadcast message
+router.post('/broadcast', function(req, res, next) {
+  var broadCastMessage=req.body['message'];  
+  var regTokens = [];
+
+  var customer = Customer.build();
+  customer.fetchAllTokenBearers(function(rows){
+    for (var i = 0; i < rows.length; i++) {
+      regTokens.push(rows[i].registration_token);
+    };
+
+    var message = new gcm.Message();
+    message.addData('message',broadCastMessage);
+
+    sender.send(message, { registrationTokens : regTokens }, function (err, response) {
+        if(err) console.log(err);
+        else    console.log(response);
+    });
+
+    res.send(200);
+
+    // sender.sendNoRetry(message1, { topic: '/topics/global' }, function (err, response) {
+//     if(err) console.error(err);
+//     else    console.log(response);
+// });
+    
+  });
 });
 
 module.exports = router;

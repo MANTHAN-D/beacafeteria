@@ -198,7 +198,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <p>xxxxx</p>
+                <p>&copy; Copyright SJSU Fall'15, CMPE-272-Team-16</p>
             </div>
         </div>
     </div>
@@ -214,9 +214,7 @@ app.controller('modifyCtrl', ['$scope','$http', function($scope,$http){
             method:'GET',
             url:'/menucontent/read'
         }).success(function(data){
-            alert("dat a in anloadMenu"+JSON.parse(data.results));
             $scope.tabelsData=JSON.parse(data.results);
-            alert("tabelsData : "+JSON.stringify($scope.tabelsData)); 
         });
 
     };
@@ -233,17 +231,15 @@ app.controller('modifyCtrl', ['$scope','$http', function($scope,$http){
     };    
 
     $scope.update = function(tableData){
-      alert("tabledata item : "+tableData.item_name);
       $scope.editingData[tableData.primary_id] = false;
       $http({
         method: 'PUT',
         url: '/menucontent/update',
         data:tableData
     }).success(function(response){
-        alert(JSON.stringify(response));
         $scope.results= response;
     }).error(function(error){
-        alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
+        alert("Menu-item updation failed. Try again.");
     });
 };    
 
@@ -255,12 +251,11 @@ $scope.add_item = function(addmenu) {
         data : addmenu
     }).success(function(response){
 
-     alert("angular : "+JSON.stringify(response));
      if(response.status==200){
          $scope.loadMenu();
      }           		
  }).error(function(error){
-    alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
+    alert("Menu-item creation failed. Try again.");
 });
 };
 
@@ -270,13 +265,11 @@ $scope.remove = function(removeItem){
         url: '/menucontent/remove',
         data : removeItem
     }).success(function(response){
-
-        alert("angular : "+JSON.stringify(response));
         if(response.status==200){
             $scope.loadMenu();
         }                   
     }).error(function(error){
-        alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
+        alert("Menu-item removal failed. Try again.");
     });
 };
 

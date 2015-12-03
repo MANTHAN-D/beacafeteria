@@ -45,8 +45,9 @@ var Counter_Register = sequelize.define('counter_register',{
 				var primary_id = this.primary_id;
 				var name = this.name;
 				var description = this.description;
+				var rating = this.rating;
 
-				Counter_Register.update({name : name, description : description},{where : {primary_id : primary_id}})
+				Counter_Register.update({name : name, description : description, rating : rating},{where : {primary_id : primary_id}})
 				.then(function(docs){
 					callback(docs);
 				});

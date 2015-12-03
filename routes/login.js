@@ -15,6 +15,7 @@ router.post('/',function(req,res,next){
 		
 		if(email == 'admin@beecafeteria.net' && password == 'password@1'){
 			console.log('Main admin');
+			req.session.sysadmin = [{email : 'admin@beecafeteria.net'}];
 			res.json({statusCode : 200});
 		}
 		else{

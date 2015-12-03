@@ -7,7 +7,7 @@ var Counter_Register = require('../models/counter_register.js').getModel();
 var DailDeal_Config = sequelize.define('daily_deals_configuration',{
 	primary_id : {type: DataTypes.INTEGER,primaryKey: true, autoIncrement : true},
 	counter_id : {type: DataTypes.INTEGER, references : {model: Counter_Register,key:'primary_id'}},
-	deal_name : {type: DataTypes.STRING, allowNull : false},
+	deal_name : {type: DataTypes.STRING, allowNull : false, unique : true},
 	deal_conditions : {type: DataTypes.STRING},
 	start_date : {type: DataTypes.DATE, allowNull : false},
 	end_date : {type: DataTypes.DATE, allowNull : false},

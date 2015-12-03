@@ -34,213 +34,212 @@
 
 <body ng-controller="modifyCtrl">
 
-    <div class="brand">BeeCafeteria</div>
-    <div class="address-bar"></div>
+  <div class="brand">BeeCafeteria</div>
+  <div class="address-bar"></div>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
-                <a class="navbar-brand" href="index.html">BeeCafeteria</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+  <!-- Navigation -->
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
+        <a class="navbar-brand" href="index.html">BeeCafeteria</a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
 
-                    <li>
-                        <a href="#" ng-click="home()" name="signup" >Home</a>
-                    </li>
-                    <li>
-                      <a href="#" ng-click="registercounter()" class="active">Add Daily Deals</a>
-                  </li>
-                  <li>
-                      <a href="#" ng-click="viewOrders()">View Orders</a>
-                  </li> 
+          <li>
+            <a href="#" ng-click="home()" name="signup" >Home</a>
+          </li>
+          <li>
+            <a href="#" ng-click="registercounter()" class="active">Add Daily Deals</a>
+          </li>
+          <li>
+            <a href="#" ng-click="viewOrders()">View Orders</a>
+          </li> 
 
 
 
-                  <li>
-                    <li><a href='#' style="margin-left:300px;" ng-click="logout()">Log Out</a></li>
-                </li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
+          <li>
+            <li><a href='#' style="margin-left:300px;" ng-click="logout()">Log Out</a></li>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
     </div>
     <!-- /.container -->
-</nav>
+  </nav>
 
-<div class="container">
-
-    <div class="row">
-        <div class="box">
-            <div class="col-lg-12 text-center">
-                <div id="carousel-example-generic" class="carousel slide">
-                    <!-- Indicators -->
-
-                    <div class="col-lg-12 well">
-                        <div class="row" ng-hide="adminDetails">
-
-
-
-                            <div class="col-sm-12 form-group" >    
-                              <h1>Add New Deals</h1>
-
-                              <form>
-                                <div class="col-sm-12">
-                                   <div class="row">
-                                      <div class="col-sm-4 form-group">
-                                         <label class="navbar-brand">Deal Name</label>
-
-                                         <input type="text" ng-model="addDeal.deal_name" placeholder="Enter Deal Name .." class="form-control">
-                                     </div>
-                                     <div class="col-sm-4 form-group">
-                                         <label class="navbar-brand">Deal COnditions</label>
-                                         <input type="text" ng-model="addDeal.deal_conditions" placeholder="Enter Conditions .." class="form-control">
-                                     </div>
-                                     <div class="col-sm-4 form-group">
-                                         <label class="navbar-brand">price</label>
-                                         <input type="number" ng-model="addDeal.price" placeholder="Enter Price Here.." class="form-control">
-                                     </div>
-                                 </div>
-                                 <div class="row">
-
-                                  <div class="col-sm-6 form-group">
-                                     <label class="navbar-brand">Start Date</label>
-                                     <input type="date" ng-model="addDeal.start_date" placeholder="Enter Start Date .." class="form-control">
-                                 </div>
-                                 <div class="col-sm-6 form-group">
-                                     <label class="navbar-brand">End Date</label>
-                                     <input type="date" ng-model="addDeal.end_date" placeholder="Enter End Date.." class="form-control">
-                                 </div>
-
-                             </div>
-                             <div class="row">
-
-                                <button type="button" ng-click="add_deal(addDeal)" class="btn btn-lg btn-info "><b>Add Deal</b></button>					
-                            </div>
-                        </div>
-                    </form>
-
-
-                </div>	</div>
-            </div>
-
-
-
-        </div>
-
-    </div>
-</div>
-</div>
-</div>
-
-<div class="container">
+  <div class="container">
 
     <div class="row">
-        <div class="box">
-            <div class="col-lg-12 text-center">
-                <div id="carousel-example-generic" class="carousel slide">
-                    <!-- Indicators -->
+      <div class="box">
+        <div class="col-lg-12 text-center">
+          <div id="carousel-example-generic" class="carousel slide">
+            <!-- Indicators -->
 
-                    <div class="col-lg-12 well">
-                        <div class="row" ng-hide="adminDetails">
-
-
-
-                            <div class="col-sm-12 form-group" >    
-                              <h1>Daily Deals</h1>
-
-                              <table class="table table-striped " >
-                                <thead>
-                                    <tr>                            
-                                        <th>Deal Name</th>
-                                        <th>Deal Conditions</th>
-                                        <th>Start date</th>
-                                        <th>End Date</th>
-                                        <th>Price</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody align="left">
-                                    <tr ng-repeat="tableData in dealsData">
-                                        <td>
-                                            <div ng-hide="editingDeal[tableData.primary_id]">{{tableData.deal_name | uppercase}}</div>
-                                            <div ng-show="editingDeal[tableData.primary_id]">{{tableData.deal_name | uppercase}}</div>
-                                        </td>
-                                        <td>
-                                            <div ng-hide="editingDeal[tableData.primary_id]">{{tableData.deal_conditions}}</div>
-                                            <div ng-show="editingDeal[tableData.primary_id]"><input type="text" ng-model="tableData.deal_conditions" /></div>
-                                        </td>
-                                        <td>
-                                            <div ng-hide="editingDeal[tableData.primary_id]">{{(tableData.start_date).substring(0,10)}}</div>
-                                            <div ng-show="editingDeal[tableData.primary_id]"><input type="date" ng-model="tableData.start_date" /></div>
-                                        </td>
-                                        <td>
-                                            <div ng-hide="editingDeal[tableData.primary_id]">{{(tableData.end_date).substring(0,10)}}</div>
-                                            <div ng-show="editingDeal[tableData.primary_id]"><input type="date" ng-model="tableData.end_date" /></div>
-                                        </td>
-                                        <td>
-                                            <div ng-hide="editingDeal[tableData.primary_id]">{{tableData.price}}</div>
-                                            <div ng-show="editingDeal[tableData.primary_id]"><input type="number" ng-model="tableData.price" /></div>
-                                        </td>
-                                        <td>
-                                            <button ng-hide="editingDeal[tableData.primary_id]" ng-click="modifyDeal(tableData)" class=" btn .btn-danger">Modify</button>
-                                            <button ng-show="editingDeal[tableData.primary_id]" ng-click="updateDeal(tableData)" class=" btn .btn-danger">Update</button>
-
-                                            <button ng-click="removeDeal(tableData)" class=" btn .btn-danger">Remove</button>
-                                        </td>
-                                    </tr>                                            
-                                </tbody>
-                            </table>
-
-
-                        </div>	</div>
-                    </div>
+            <div class="col-lg-12 well">
+              <div class="row" ng-hide="adminDetails">
 
 
 
+                <div class="col-sm-12 form-group" >    
+                  <h1>Add New Deals</h1>
+
+                  <form>
+                    <div class="col-sm-12">
+                     <div class="row">
+                      <div class="col-sm-4 form-group">
+                       <label class="navbar-brand">Deal Name</label>
+
+                       <input type="text" ng-model="addDeal.deal_name" placeholder="Enter Deal Name .." class="form-control">
+                     </div>
+                     <div class="col-sm-4 form-group">
+                       <label class="navbar-brand">Deal COnditions</label>
+                       <input type="text" ng-model="addDeal.deal_conditions" placeholder="Enter Conditions .." class="form-control">
+                     </div>
+                     <div class="col-sm-4 form-group">
+                       <label class="navbar-brand">price</label>
+                       <input type="number" ng-model="addDeal.price" placeholder="Enter Price Here.." class="form-control">
+                     </div>
+                   </div>
+                   <div class="row">
+
+                    <div class="col-sm-6 form-group">
+                     <label class="navbar-brand">Start Date</label>
+                     <input type="date" ng-model="addDeal.start_date" placeholder="Enter Start Date .." class="form-control">
+                   </div>
+                   <div class="col-sm-6 form-group">
+                     <label class="navbar-brand">End Date</label>
+                     <input type="date" ng-model="addDeal.end_date" placeholder="Enter End Date.." class="form-control">
+                   </div>
+
+                 </div>
+                 <div class="row">
+
+                  <button type="button" ng-click="add_deal(addDeal)" class="btn btn-lg btn-info "><b>Add Deal</b></button>					
                 </div>
+              </div>
+            </form>
 
-            </div>
+
+          </div>	</div>
         </div>
+
+
+
+      </div>
+
     </div>
+  </div>
+</div>
 </div>
 
+<div class="container">
 
-<!-- /.container -->
+  <div class="row">
+    <div class="box">
+      <div class="col-lg-12 text-center">
+        <div id="carousel-example-generic" class="carousel slide">
+          <!-- Indicators -->
 
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <p>xxxxx</p>
+          <div class="col-lg-12 well">
+            <div class="row" ng-hide="adminDetails">
+
+
+
+              <div class="col-sm-12 form-group" >    
+                <h1>Daily Deals</h1>
+
+                <table class="table table-striped " >
+                  <thead>
+                    <tr>                            
+                      <th>Deal Name</th>
+                      <th>Deal Conditions</th>
+                      <th>Start date</th>
+                      <th>End Date</th>
+                      <th>Price</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody align="left">
+                    <tr ng-repeat="tableData in dealsData">
+                      <td>
+                        <div ng-hide="editingDeal[tableData.primary_id]">{{tableData.deal_name | uppercase}}</div>
+                        <div ng-show="editingDeal[tableData.primary_id]">{{tableData.deal_name | uppercase}}</div>
+                      </td>
+                      <td>
+                        <div ng-hide="editingDeal[tableData.primary_id]">{{tableData.deal_conditions}}</div>
+                        <div ng-show="editingDeal[tableData.primary_id]"><input type="text" ng-model="tableData.deal_conditions" /></div>
+                      </td>
+                      <td>
+                        <div ng-hide="editingDeal[tableData.primary_id]">{{(tableData.start_date).toString().substring(0,10)}}</div>
+                        <div ng-show="editingDeal[tableData.primary_id]"><input type="date" ng-model="tableData.start_date" /></div>
+                      </td>
+                      <td>
+                        <div ng-hide="editingDeal[tableData.primary_id]">{{(tableData.end_date).toString().substring(0,10)}}</div>
+                        <div ng-show="editingDeal[tableData.primary_id]"><input type="date" ng-model="tableData.end_date" /></div>
+                      </td>
+                      <td>
+                        <div ng-hide="editingDeal[tableData.primary_id]">{{tableData.price}}</div>
+                        <div ng-show="editingDeal[tableData.primary_id]"><input type="number" ng-model="tableData.price" /></div>
+                      </td>
+                      <td>
+                        <button ng-hide="editingDeal[tableData.primary_id]" ng-click="modifyDeal(tableData)" class=" btn .btn-danger">Modify</button>
+                        <button ng-show="editingDeal[tableData.primary_id]" ng-click="updateDeal(tableData)" class=" btn .btn-danger">Update</button>
+
+                        <button ng-click="removeDeal(tableData)" class=" btn .btn-danger">Remove</button>
+                      </td>
+                    </tr>                                            
+                  </tbody>
+                </table>
+
+
+              </div>	</div>
             </div>
+
+
+
+          </div>
+
         </div>
+      </div>
     </div>
-</footer>
-<script>
-var app = angular.module('counter_configuration', []);
-app.controller('modifyCtrl', ['$scope','$http', function($scope,$http){
+  </div>
+
+
+  <!-- /.container -->
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <p>&copy; Copyright SJSU Fall'15, CMPE-272-Team-16</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script>
+  var app = angular.module('counter_configuration', []);
+  app.controller('modifyCtrl', ['$scope','$http', function($scope,$http){
     $scope.dealsData=[];
 
     $scope.loadDeals= function()
     {
-        $http({
-            method:'GET',
-            url:'/dailydeals/read'
-        }).success(function(data){
-            alert("dat a in anloadDeals"+JSON.parse(data.results));
-            $scope.dealsData=JSON.parse(data.results);
-            alert("dealsData : "+JSON.stringify($scope.dealsData)); 
-        });
+      $http({
+        method:'GET',
+        url:'/dailydeals/read'
+      }).success(function(data){
+        // $scope.dealsData=JSON.parse(data.results);        
+        $scope.dealsData=data;
+      });
 
     };
 
@@ -248,73 +247,69 @@ app.controller('modifyCtrl', ['$scope','$http', function($scope,$http){
 
     $scope.editingDeal = {};
     for (var i = 0, length = $scope.dealsData.length; i < length; i++) {
-        $scope.editingDeal[$scope.dealsData[i].primary_id] = false;
+      $scope.editingDeal[$scope.dealsData[i].primary_id] = false;
     }
 
     $scope.modifyDeal = function(tableData){
-        $scope.editingDeal[tableData.primary_id] = true;        
+      $scope.editingDeal[tableData.primary_id] = true;        
     };
 
-$scope.updateDeal = function(tableData){
-  alert("tabledata item : "+tableData.deal_name);
-  $scope.editingDeal[tableData.primary_id] = false;
-  $http({
-    method: 'PUT',
-    url: '/dailydeals/update',
-    data:tableData
-}).success(function(response){
-    alert(JSON.stringify(response));
-    $scope.dealResults= response;
-}).error(function(error){
-    alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
-});
-};    
+    $scope.updateDeal = function(tableData){
+      $scope.editingDeal[tableData.primary_id] = false;
+      $http({
+        method: 'PUT',
+        url: '/dailydeals/update',
+        data:tableData
+      }).success(function(response){
+        $scope.dealResults= response;
+      }).error(function(error){
+        alert("Deal updation failed. Try again");
+      });
+    };    
 
-$scope.add_deal = function(addDeal) {
+    $scope.add_deal = function(addDeal) {
 
-    $http({
+      $http({
         method: 'POST',
         url: '/dailydeals/create',
         data : addDeal
-    }).success(function(response){
+      }).success(function(response){
 
-        alert("angular : "+JSON.stringify(response));
         if(response.status==200){
-            $scope.loadDeals();
+          $scope.loadDeals();
         }                   
-    }).error(function(error){
-        alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
-    });
-};
+      }).error(function(error){
+        alert("Deal creation failed. Try again.");
+      });
+    };
 
-$scope.removeDeal = function(removeItem){
-    $http({
+    $scope.removeDeal = function(removeItem){
+      $http({
         method: 'POST',
         url: '/dailydeals/remove',
         data : removeItem
-    }).success(function(response){
+      }).success(function(response){
 
-        alert("angular : "+JSON.stringify(response));
         if(response.status==200){
-            $scope.loadDeals();
+          $scope.loadDeals();
         }                   
-    }).error(function(error){
-        alert("ERROR VIEWING PENDING CUSTOMER REQUEST");
-    });
-};
-$scope.home = function(){
-    window.location='../admin/counterAdmin';
-};
+      }).error(function(error){
+        alert("Deal removal failed. Try again.");
+      });
+    };
+    $scope.home = function(){
+      window.location='../admin/counterAdmin';
+    };
 
-$scope.viewOrders = function(){
-    window.location='../order/viewOrders';
-};
+    $scope.viewOrders = function(){
+      window.location='../order/viewOrders';
+    };
 
-$scope.logout = function(){
-    window.location='/logout';
-};
+    $scope.logout = function(){
+      window.location='/logout';
+    };
 
-}]);
+  }]);
 
 
 </script> 

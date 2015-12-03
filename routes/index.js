@@ -18,6 +18,14 @@ router.get('/loginasadmin', function(req, res, next) {
   res.render('loginAdmin', { title: 'Admin Login' });
 });
 
+router.get('/aboutus', function(req, res, next) {
+  res.render('aboutUs', { title: 'About Us' });
+});
+
+router.get('/contactus', function(req, res, next) {
+  res.render('ContactUs', { title: 'Admin Login' });
+});
+
 router.post('/registerAdmin',function(req,res,next){
 		
 	var data ={};
